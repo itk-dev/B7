@@ -2,6 +2,9 @@
 
 System for showing and managing simple surveys.
 
+**Built with:**
+- [EasyAdmin Extension](https://github.com/alterphp/EasyAdminExtensionBundle)
+
 ## Getting started
 
 ### Prerequisites
