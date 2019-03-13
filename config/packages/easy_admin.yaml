@@ -7,7 +7,6 @@ easy_admin:
 
   design:
     menu:
-      - Product
       - { label: 'menu.admin', role: 'ROLE_ADMIN' }
       - { entity: 'User', icon: 'user', label: 'menu.user' }
 
