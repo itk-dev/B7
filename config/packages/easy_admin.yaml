@@ -5,9 +5,16 @@ easy_admin:
     time: 'H:i'
     datetime: 'd/m/Y H:i:s'
 
+  design:
+    menu:
+      - Product
+      - { label: 'menu.admin', role: 'ROLE_ADMIN' }
+      - { entity: 'User', icon: 'user', label: 'menu.user' }
+
   entities:
     User:
       class: App\Entity\User
+      role: ROLE_ADMIN
       form:
         fields:
           - username
