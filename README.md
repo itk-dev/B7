@@ -3,7 +3,10 @@
 System for showing and managing simple surveys.
 
 **Built with:**
+- [Symfony](https://symfony.com)
+- [EasyAdmin](https://symfony.com/doc/master/bundles/EasyAdminBundle/index.html)
 - [EasyAdmin Extension](https://github.com/alterphp/EasyAdminExtensionBundle)
+- [FOSUserBundle](https://symfony.com/doc/master/bundles/FOSUserBundle/index.html)
 
 ## Getting started
 
