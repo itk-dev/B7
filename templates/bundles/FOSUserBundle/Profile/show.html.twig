@@ -13,6 +13,9 @@
     <div class="button-action">
         <a class="btn btn-success" href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-edit"></i> {{ 'profile.edit.submit'|trans }}</a>
     </div>
+    <div class="button-action">
+        <a class="btn btn-warning" href="{{ path('fos_user_change_password') }}"><i class="fa fa-key"></i> {{ 'change_password.submit'|trans }}</a>
+    </div>
 {% endblock %}
 
 {% block main %}
