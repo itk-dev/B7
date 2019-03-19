@@ -6,6 +6,8 @@ easy_admin:
     datetime: 'd/m/Y H:i:s'
 
   design:
+    templates:
+      layout: 'easy_admin_overrides/layout.html.twig'
     menu:
       - { label: 'menu.admin', role: 'ROLE_ADMIN' }
       - { entity: 'User', icon: 'user', label: 'menu.user' }
