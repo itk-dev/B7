@@ -1,0 +1,42 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends easyadmin_config('design.templates.layout') %}
+
+{% block page_title 'user_menu.profile' | trans(domain = 'messages') %}
+
+{% block content_title %}
+    {% spaceless %}
+        {{ 'user_menu.profile'|trans(domain = 'messages') }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block global_actions %}
+    <div class="button-action">
+        <a class="btn btn-success" href="{{ path('fos_user_profile_edit') }}"><i class="fa fa-edit"></i> {{ 'profile.edit.submit'|trans }}</a>
+    </div>
+{% endblock %}
+
+{% block main %}
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label class="form-control-label">{{ 'profile.show.username'|trans }}</label>
+                <div class="form-widget">
+                    <span class="form-control">{{ user.username }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label class="form-control-label">{{ 'profile.show.email'|trans }}</label>
+                <div class="form-widget">
+                    <span class="form-control">{{ user.email }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock main %}
