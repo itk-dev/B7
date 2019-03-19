@@ -3,7 +3,7 @@
 {% block user_menu %}
     {% if _user_has_logout or _user_is_impersonated %}
         <div class="popover-content-section user-menu">
-            <a class="user-action" href="{{ path('fos_user_profile_edit') }}">Profil</a>
+            <a class="user-action" href="{{ path('fos_user_profile_edit') }}">{{ 'user_menu.profile'|trans }}</a>
             {% if _user_has_logout %}
                 <a class="user-action user-action-logout" href="{{ _logout_path }}">{{ 'user.signout'|trans(domain = 'EasyAdminBundle') }}</a>
             {% endif %}
