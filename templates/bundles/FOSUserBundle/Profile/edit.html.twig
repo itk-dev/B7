@@ -1,0 +1,47 @@
+{% form_theme form with easyadmin_config('design.form_theme') %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends easyadmin_config('design.templates.layout') %}
+
+{% block page_title 'profile.edit.submit' | trans %}
+
+{% block content_title %}
+    {% spaceless %}
+        {{ 'profile.edit.submit'|trans }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block main %}
+    {{ form_start(form, { 'action': path('fos_user_profile_edit')}) }}
+
+        {{ form_errors(form) }}
+
+        <div class="row">
+            <div class="col-12">
+                {{ form_row(form.username) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{ form_row(form.email) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {{ form_row(form.current_password) }}
+            </div>
+        </div>
+
+        {{ form_row(form._token) }}
+
+{% endblock main %}
+
+{% block content_footer %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary action-save">
+                <i class="fa fa-save"></i>
+                <span class="btn-label">{{ 'profile.edit.submit'|trans }}</span>
+            </button>
+        </div>
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock content_footer %}

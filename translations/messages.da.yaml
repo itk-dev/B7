@@ -1,3 +1,5 @@
 menu:
   admin: 'Administrator'
   user: 'Brugere'
+user_menu:
+  profile: 'Profil'
