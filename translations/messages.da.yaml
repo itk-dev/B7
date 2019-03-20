@@ -1,5 +1,6 @@
 menu:
   admin: 'Administrator'
   user: 'Brugere'
+  survey: 'Spørgeskemaer'
 user_menu:
   profile: 'Profil'
