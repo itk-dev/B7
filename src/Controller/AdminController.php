@@ -24,9 +24,9 @@ class AdminController extends BaseAdminController
         parent::updateEntity($user);
     }
 
-    public function createSurveyNewForm($entity, $fields)
+    protected function createEntityForm($entity, $fields, $view)
     {
-        $form = parent::createNewForm($entity, $fields);
+        $form = parent::createEntityForm($entity, $fields, $view);
 
         // We remove fields from the form if the currently logged in
         // user is not allowed to set a value for a specific field.
