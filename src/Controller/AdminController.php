@@ -58,4 +58,46 @@ class AdminController extends BaseAdminController
 
         parent::persistEntity($entity);
     }
+
+    public function listSurveyAction()
+    {
+        $this->dispatch(EasyAdminEvents::PRE_LIST);
+
+        $user = $this->getUser();
+
+        // We only want to show Surveys for the currently logged in user
+        // except if the currently logged in user has the admin role.
+        if ( ! $this->isGranted('ROLE_ADMIN') )
+        {
+            $currentDqlFilter = $this->entity['list']['dql_filter'];
+
+            $currentUserDqlFilter = "entity.user = " . $user->getId();
+
+            $newDqlFilter = $this->appendDqlFilterToDqlFilter($currentDqlFilter, $currentUserDqlFilter);
+
+            $this->entity['list']['dql_filter'] = $newDqlFilter;
+        }
+
+        return $this->listAction();
+    }
+
+    /**
+     * Appends new dql filter to an existing dql filter.
+     * If existing dql filter is empty the new dql filter will be returned.
+     *
+     * @param $dqlFilter
+     * @param $newDqlFilter
+     * @return string
+     */
+    private function appendDqlFilterToDqlFilter($dqlFilter, $newDqlFilter)
+    {
+        if ( empty($dqlFilter) )
+        {
+            return $newDqlFilter;
+        }
+
+        $dqlFilter .= "AND " . $newDqlFilter;
+
+        return $dqlFilter;
+    }
 }
