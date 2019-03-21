@@ -12,7 +12,7 @@ System for showing and managing simple surveys.
 
 This project adds some extra functionality based on roles when creating entities in the ui and listing entities in the ui.
 This means that when you set the role property on a field in config/packages/easy_admin.yaml it will affect the fields in 
-the create form and in the table when listing entities.
+the create and edit form and in the table when listing entities.
 
 Example for list action:
 
@@ -36,7 +36,7 @@ Example for form:
 ```yaml
 # config/packages/easy_admin.config
 
-# Here only users with the ROLE_ADMIN role will see the user field when creating Surveys.
+# Here only users with the ROLE_ADMIN role will see the user field when creating and editing Surveys.
 # NB! This overrides the EasyAdmin extension functionality that hides fields when setting the role property.
 Survey:
   class: App\Entity\Survey
