@@ -100,4 +100,28 @@ class AdminController extends BaseAdminController
 
         return $dqlFilter;
     }
+
+    public function listAction() {
+
+        $this->dispatch(EasyAdminEvents::PRE_LIST);
+
+        $fields = $this->entity['list']['fields'];
+
+        $this->entity['list']['fields'] = $this->getFilteredListOfFieldsOnRole($fields);
+
+        return parent::listAction();
+    }
+
+    private function getFilteredListOfFieldsOnRole(array $fields): array
+    {
+        return array_filter($fields, function($field) {
+
+            if ( ! empty($field['role']) )
+            {
+                return ( $this->isGranted($field['role']) ) ? $field : null;
+            }
+
+            return $field;
+        });
+    }
 }
