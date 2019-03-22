@@ -64,6 +64,10 @@
         "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "cs": "vendor/bin/phpcs",
+        "cbf": "vendor/bin/phpcbf",
+        "cs-fixer": "vendor/bin/php-cs-fixer fix -v --diff --dry-run",
+        "cs-fixer-fix": "vendor/bin/php-cs-fixer fix -v --diff",
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
