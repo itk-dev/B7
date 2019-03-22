@@ -30,15 +30,12 @@ class AdminController extends BaseAdminController
 
         // We remove fields from the form if the currently logged in
         // user is not allowed to set a value for a specific field.
-        foreach ($fields as $name => $field)
-        {
-            if ( empty($field['role']) )
-            {
+        foreach ($fields as $name => $field) {
+            if (empty($field['role'])) {
                 continue;
             }
 
-            if ( ! $this->isGranted($field['role']) )
-            {
+            if (! $this->isGranted($field['role'])) {
                 $form->remove($name);
             }
         }
@@ -51,8 +48,7 @@ class AdminController extends BaseAdminController
         // Making sure there always is a user attached to the Survey.
         // If the currently logged in User is not an admin, no User will be attached before now
         // due to the User field in the form for creating a Survey is only showed to admins.
-        if ( empty($entity->getUser()) )
-        {
+        if (empty($entity->getUser())) {
             $entity->setUser($this->getUser());
         }
 
@@ -67,11 +63,10 @@ class AdminController extends BaseAdminController
 
         // We only want to show Surveys for the currently logged in user
         // except if the currently logged in user has the admin role.
-        if ( ! $this->isGranted('ROLE_ADMIN') )
-        {
+        if (! $this->isGranted('ROLE_ADMIN')) {
             $currentDqlFilter = $this->entity['list']['dql_filter'];
 
-            $currentUserDqlFilter = "entity.user = " . $user->getId();
+            $currentUserDqlFilter = "entity.user = ".$user->getId();
 
             $newDqlFilter = $this->appendDqlFilterToDqlFilter($currentDqlFilter, $currentUserDqlFilter);
 
@@ -87,21 +82,22 @@ class AdminController extends BaseAdminController
      *
      * @param $dqlFilter
      * @param $newDqlFilter
+     *
      * @return string
      */
     private function appendDqlFilterToDqlFilter($dqlFilter, $newDqlFilter)
     {
-        if ( empty($dqlFilter) )
-        {
+        if (empty($dqlFilter)) {
             return $newDqlFilter;
         }
 
-        $dqlFilter .= "AND " . $newDqlFilter;
+        $dqlFilter .= "AND ".$newDqlFilter;
 
         return $dqlFilter;
     }
 
-    public function listAction() {
+    public function listAction()
+    {
 
         $this->dispatch(EasyAdminEvents::PRE_LIST);
 
@@ -114,10 +110,9 @@ class AdminController extends BaseAdminController
 
     private function getFilteredListOfFieldsOnRole(array $fields): array
     {
-        return array_filter($fields, function($field) {
+        return array_filter($fields, function ($field) {
 
-            if ( ! empty($field['role']) )
-            {
+            if (! empty($field['role'])) {
                 return ( $this->isGranted($field['role']) ) ? $field : null;
             }
 
