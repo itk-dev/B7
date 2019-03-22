@@ -34,37 +34,37 @@ class Survey
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $positive_follow_up;
+    private $positiveFollowUp;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $negative_follow_up;
+    private $negativeFollowUp;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $follow_up_text_1;
+    private $followUpText1;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $follow_up_text_2;
+    private $followUpText2;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $follow_up_text_3;
+    private $followUpText3;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $follow_up_text_4;
+    private $followUpText4;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $follow_up_text_5;
+    private $followUpText5;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="surveys")
@@ -125,17 +125,17 @@ class Survey
      */
     public function getPositiveFollowUp(): ?string
     {
-        return $this->positive_follow_up;
+        return $this->positiveFollowUp;
     }
 
     /**
-     * @param string $positive_follow_up
+     * @param string $positiveFollowUp
      *
      * @return Survey
      */
-    public function setPositiveFollowUp(string $positive_follow_up): self
+    public function setPositiveFollowUp(string $positiveFollowUp): self
     {
-        $this->positive_follow_up = $positive_follow_up;
+        $this->positiveFollowUp = $positiveFollowUp;
 
         return $this;
     }
@@ -145,17 +145,17 @@ class Survey
      */
     public function getNegativeFollowUp(): ?string
     {
-        return $this->negative_follow_up;
+        return $this->negativeFollowUp;
     }
 
     /**
-     * @param string $negative_follow_up
+     * @param string $negativeFollowUp
      *
      * @return Survey
      */
-    public function setNegativeFollowUp(string $negative_follow_up): self
+    public function setNegativeFollowUp(string $negativeFollowUp): self
     {
-        $this->negative_follow_up = $negative_follow_up;
+        $this->negativeFollowUp = $negativeFollowUp;
 
         return $this;
     }
@@ -165,17 +165,17 @@ class Survey
      */
     public function getFollowUpText1(): ?string
     {
-        return $this->follow_up_text_1;
+        return $this->followUpText1;
     }
 
     /**
-     * @param string $follow_up_text_1
+     * @param string $followUpText1
      *
      * @return Survey
      */
-    public function setFollowUpText1(string $follow_up_text_1): self
+    public function setFollowUpText1(string $followUpText1): self
     {
-        $this->follow_up_text_1 = $follow_up_text_1;
+        $this->followUpText1 = $followUpText1;
 
         return $this;
     }
@@ -185,17 +185,17 @@ class Survey
      */
     public function getFollowUpText2(): ?string
     {
-        return $this->follow_up_text_2;
+        return $this->followUpText2;
     }
 
     /**
-     * @param string $follow_up_text_2
+     * @param string $followUpText2
      *
      * @return Survey
      */
-    public function setFollowUpText2(string $follow_up_text_2): self
+    public function setFollowUpText2(string $followUpText2): self
     {
-        $this->follow_up_text_2 = $follow_up_text_2;
+        $this->followUpText2 = $followUpText2;
 
         return $this;
     }
@@ -205,17 +205,17 @@ class Survey
      */
     public function getFollowUpText3(): ?string
     {
-        return $this->follow_up_text_3;
+        return $this->followUpText3;
     }
 
     /**
-     * @param string $follow_up_text_3
+     * @param string $followUpText3
      *
      * @return Survey
      */
-    public function setFollowUpText3(string $follow_up_text_3): self
+    public function setFollowUpText3(string $followUpText3): self
     {
-        $this->follow_up_text_3 = $follow_up_text_3;
+        $this->followUpText3 = $followUpText3;
 
         return $this;
     }
@@ -225,17 +225,17 @@ class Survey
      */
     public function getFollowUpText4(): ?string
     {
-        return $this->follow_up_text_4;
+        return $this->followUpText4;
     }
 
     /**
-     * @param string|null $follow_up_text_4
+     * @param string|null $followUpText4
      *
      * @return Survey
      */
-    public function setFollowUpText4(?string $follow_up_text_4): self
+    public function setFollowUpText4(?string $followUpText4): self
     {
-        $this->follow_up_text_4 = $follow_up_text_4;
+        $this->followUpText4 = $followUpText4;
 
         return $this;
     }
@@ -245,17 +245,17 @@ class Survey
      */
     public function getFollowUpText5(): ?string
     {
-        return $this->follow_up_text_5;
+        return $this->followUpText5;
     }
 
     /**
-     * @param string|null $follow_up_text_5
+     * @param string|null $followUpText5
      *
      * @return Survey
      */
-    public function setFollowUpText5(?string $follow_up_text_5): self
+    public function setFollowUpText5(?string $followUpText5): self
     {
-        $this->follow_up_text_5 = $follow_up_text_5;
+        $this->followUpText5 = $followUpText5;
 
         return $this;
     }
