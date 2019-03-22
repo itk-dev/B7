@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @license MIT
+ * @license https://opensource.org/licenses/MIT The MIT License
+ */
+
 namespace App\Repository;
 
 use App\Entity\Survey;
@@ -14,6 +19,11 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class SurveyRepository extends ServiceEntityRepository
 {
+    /**
+     * SurveyRepository constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Survey::class);
