@@ -35,7 +35,7 @@ class AdminController extends BaseAdminController
                 continue;
             }
 
-            if (! $this->isGranted($field['role'])) {
+            if (!$this->isGranted($field['role'])) {
                 $form->remove($name);
             }
         }
@@ -63,10 +63,10 @@ class AdminController extends BaseAdminController
 
         // We only want to show Surveys for the currently logged in user
         // except if the currently logged in user has the admin role.
-        if (! $this->isGranted('ROLE_ADMIN')) {
+        if (!$this->isGranted('ROLE_ADMIN')) {
             $currentDqlFilter = $this->entity['list']['dql_filter'];
 
-            $currentUserDqlFilter = "entity.user = ".$user->getId();
+            $currentUserDqlFilter = 'entity.user = '.$user->getId();
 
             $newDqlFilter = $this->appendDqlFilterToDqlFilter($currentDqlFilter, $currentUserDqlFilter);
 
@@ -91,14 +91,13 @@ class AdminController extends BaseAdminController
             return $newDqlFilter;
         }
 
-        $dqlFilter .= "AND ".$newDqlFilter;
+        $dqlFilter .= 'AND '.$newDqlFilter;
 
         return $dqlFilter;
     }
 
     public function listAction()
     {
-
         $this->dispatch(EasyAdminEvents::PRE_LIST);
 
         $fields = $this->entity['list']['fields'];
@@ -111,9 +110,8 @@ class AdminController extends BaseAdminController
     private function getFilteredListOfFieldsOnRole(array $fields): array
     {
         return array_filter($fields, function ($field) {
-
-            if (! empty($field['role'])) {
-                return ( $this->isGranted($field['role']) ) ? $field : null;
+            if (!empty($field['role'])) {
+                return ($this->isGranted($field['role'])) ? $field : null;
             }
 
             return $field;
