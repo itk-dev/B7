@@ -8,6 +8,53 @@ System for showing and managing simple surveys.
 - [EasyAdmin Extension](https://github.com/alterphp/EasyAdminExtensionBundle)
 - [FOSUserBundle](https://symfony.com/doc/master/bundles/FOSUserBundle/index.html)
 
+**Extendings of existing functionality**
+
+This project adds some extra functionality based on roles when creating entities in the ui and listing entities in the ui.
+This means that when you set the role property on a field in config/packages/easy_admin.yaml it will affect the fields in 
+the create and edit form and in the table when listing entities.
+
+Example for list action:
+
+```yaml
+# config/packages/easy_admin.config
+
+# Here only users with the ROLE_ADMIN role will see the user field in the listing view.
+Survey:
+  class: App\Entity\Survey
+  role: ROLE_USER
+  list:
+    fields:
+      - id
+      - title
+      - question
+      - { property: 'user', role: ROLE_ADMIN } 
+```
+
+Example for form:
+
+```yaml
+# config/packages/easy_admin.config
+
+# Here only users with the ROLE_ADMIN role will see the user field when creating and editing Surveys.
+# NB! This overrides the EasyAdmin extension functionality that hides fields when setting the role property.
+Survey:
+  class: App\Entity\Survey
+  role: ROLE_USER
+  form:
+    fields:
+      - title
+      - question
+      - positive_follow_up
+      - negative_follow_up
+      - follow_up_text_1
+      - follow_up_text_2
+      - follow_up_text_3
+      - follow_up_text_4
+      - follow_up_text_5
+      - { property: 'user', role: ROLE_ADMIN }
+```
+
 ## Getting started
 
 ### Prerequisites
