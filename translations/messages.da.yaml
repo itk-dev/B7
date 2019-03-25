@@ -16,3 +16,10 @@ entity:
     follow_up_text_3: '3. opfølgsningssvarmulighed'
     follow_up_text_4: '4. opfølgsningssvarmulighed'
     follow_up_text_5: '5. opfølgsningssvarmulighed'
+  user:
+    username: 'Brugernavn'
+    email: 'Email'
+    enabled: 'Aktiveret'
+    last_login: 'Sidst logget ind'
+User: 'Bruger'
+Survey: 'Spørgeskema'

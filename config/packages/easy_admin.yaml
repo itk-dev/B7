@@ -17,6 +17,11 @@ easy_admin:
     User:
       class: App\Entity\User
       role: ROLE_ADMIN
+      list:
+        fields:
+          - { property: 'username', label: 'entity.user.username' }
+          - { property: 'email', label: 'entity.user.email' }
+          - { property: 'enabled', label: 'entity.user.enabled' }
       form:
         fields:
           - username
