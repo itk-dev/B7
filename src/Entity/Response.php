@@ -39,6 +39,9 @@ class Response
 
     /**
      * Response constructor.
+     *
+     * Creates and returns a new instance of the Response class with the createdAt property set to the datetime
+     * on creation.
      */
     public function __construct()
     {
