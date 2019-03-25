@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Spørgeskema</title>
+    </head>
+<body>
+
+<form method="POST" action="/survey/{{ survey.id }}/reply">
+    <h1>{{ survey.question }}</h1>
+    <input type="radio" name="answer" value="1">1
+    <input type="radio" name="answer" value="2">2
+    <input type="radio" name="answer" value="3">3
+    <input type="radio" name="answer" value="4">4
+    <input type="radio" name="answer" value="5">5
+
+    <p>{{ survey.positiveFollowUp }}</p>
+    <p>{{ survey.negativeFollowUp }}</p>
+
+    {% if survey.followUpText1 %}
+    <input type="radio" name="followUpAnswer" value="1">{{ survey.followUpText1 }}
+    {% endif %}
+
+    {% if survey.followUpText2 %}
+        <input type="radio" name="followUpAnswer" value="2">{{ survey.followUpText2 }}
+    {% endif %}
+
+    {% if survey.followUpText3 %}
+        <input type="radio" name="followUpAnswer" value="3">{{ survey.followUpText3 }}
+    {% endif %}
+
+    {% if survey.followUpText4 %}
+        <input type="radio" name="followUpAnswer" value="4">{{ survey.followUpText4 }}
+    {% endif %}
+
+    {% if survey.followUpText5 %}
+        <input type="radio" name="followUpAnswer" value="5">{{ survey.followUpText5 }}
+    {% endif %}
+
+    <br />
+    <br />
+
+    <input type="submit" value="Send" />
+</form>
+
+</body>
+</html>
