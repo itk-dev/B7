@@ -31,18 +31,18 @@ easy_admin:
       list:
         fields:
           - id
-          - title
-          - question
-          - { property: 'user', role: ROLE_ADMIN }
+          - { property: 'title', label: 'entity.survey.title' }
+          - { property: 'question', label: 'entity.survey.question' }
+          - { property: 'user', role: ROLE_ADMIN, label: 'entity.survey.user' }
       form:
         fields:
-          - title
-          - question
-          - positive_follow_up
-          - negative_follow_up
-          - follow_up_text_1
-          - follow_up_text_2
-          - follow_up_text_3
-          - follow_up_text_4
-          - follow_up_text_5
-          - { property: 'user', role: ROLE_ADMIN }
+          - { property: 'title', label: 'entity.survey.title' }
+          - { property: 'question', label: 'entity.survey.question' }
+          - { property: 'positiveFollowUp', label: 'entity.survey.positive_follow_up' }
+          - { property: 'negativeFollowUp', label: 'entity.survey.negative_follow_up' }
+          - {property: 'followUpText1', label: 'entity.survey.follow_up_text_1' }
+          - {property: 'followUpText2', label: 'entity.survey.follow_up_text_2' }
+          - {property: 'followUpText3', label: 'entity.survey.follow_up_text_3' }
+          - {property: 'followUpText4', label: 'entity.survey.follow_up_text_4' }
+          - {property: 'followUpText5', label: 'entity.survey.follow_up_text_5' }
+          - { property: 'user', role: ROLE_ADMIN, label: 'entity.survey.user' }

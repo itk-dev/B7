@@ -4,3 +4,15 @@ menu:
   survey: 'Spørgeskemaer'
 user_menu:
   profile: 'Profil'
+entity:
+  survey:
+    title: 'Titel'
+    question: 'Spørgsmål'
+    user: 'Ejer'
+    positive_follow_up: 'Positivt opfølgningsspørgsmål'
+    negative_follow_up: 'Negativt opfølgningsspørgsmål'
+    follow_up_text_1: '1. opfølgsningssvarmulighed'
+    follow_up_text_2: '2. opfølgsningssvarmulighed'
+    follow_up_text_3: '3. opfølgsningssvarmulighed'
+    follow_up_text_4: '4. opfølgsningssvarmulighed'
+    follow_up_text_5: '5. opfølgsningssvarmulighed'
