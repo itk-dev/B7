@@ -38,6 +38,14 @@ class Response
     private $createdAt;
 
     /**
+     * Response constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
      * @return int|null
      */
     public function getId(): ?int
