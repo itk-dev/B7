@@ -13,6 +13,9 @@
     <file>src/</file>
     <file>tests/</file>
 
+    <exclude-pattern>src/Kernel.php</exclude-pattern>
+    <exclude-pattern>src/Migrations/</exclude-pattern>
+
     <!-- No warnings -->
     <arg value="n"/>
     <!-- Show progress -->
