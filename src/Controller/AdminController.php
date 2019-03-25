@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use AlterPHP\EasyAdminExtensionBundle\Controller\EasyAdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
+use FOS\UserBundle\Model\UserManagerInterface;
 
 /**
  * Class AdminController.
@@ -12,6 +13,14 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
  */
 class AdminController extends BaseAdminController
 {
+    /**
+     * @return array
+     */
+    public static function getSubscribedServices(): array
+    {
+        return \array_merge(parent::getSubscribedServices(), ['fos_user.user_manager' => UserManagerInterface::class]);
+    }
+
     /**
      * Creates and returns a new instance of the User-class.
      *
