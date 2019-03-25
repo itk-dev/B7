@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @license MIT
- * @license https://opensource.org/licenses/MIT The MIT License
- */
-
 namespace App\Repository;
 
 use App\Entity\Survey;

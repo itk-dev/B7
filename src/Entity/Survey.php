@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @license MIT
- * @license https://opensource.org/licenses/MIT The MIT License
- */
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

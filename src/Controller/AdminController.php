@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @license MIT
- * @license https://opensource.org/licenses/MIT The MIT License
- */
-
 namespace App\Controller;
 
 use AlterPHP\EasyAdminExtensionBundle\Controller\EasyAdminController as BaseAdminController;
