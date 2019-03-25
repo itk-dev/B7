@@ -16,6 +16,7 @@ entity:
     follow_up_text_3: '3. opfølgsningssvarmulighed'
     follow_up_text_4: '4. opfølgsningssvarmulighed'
     follow_up_text_5: '5. opfølgsningssvarmulighed'
+    responses: 'Svar'
   user:
     username: 'Brugernavn'
     email: 'Email'

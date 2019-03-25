@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -66,6 +68,16 @@ class Survey
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="survey")
+     */
+    private $responses;
+
+    public function __construct()
+    {
+        $this->responses = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -271,6 +283,47 @@ class Survey
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Response[]
+     */
+    public function getResponses(): Collection
+    {
+        return $this->responses;
+    }
+
+    /**
+     * @param Response $response
+     *
+     * @return Survey
+     */
+    public function addResponse(Response $response): self
+    {
+        if (!$this->responses->contains($response)) {
+            $this->responses[] = $response;
+            $response->setSurvey($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Response $response
+     *
+     * @return Survey
+     */
+    public function removeResponse(Response $response): self
+    {
+        if ($this->responses->contains($response)) {
+            $this->responses->removeElement($response);
+            // set the owning side to null (unless already changed)
+            if ($response->getSurvey() === $this) {
+                $response->setSurvey(null);
+            }
+        }
 
         return $this;
     }

@@ -38,6 +38,7 @@ easy_admin:
           - id
           - { property: 'title', label: 'entity.survey.title' }
           - { property: 'question', label: 'entity.survey.question' }
+          - { property: 'responses', label: 'entity.survey.responses' }
           - { property: 'user', role: ROLE_ADMIN, label: 'entity.survey.user' }
       form:
         fields:
