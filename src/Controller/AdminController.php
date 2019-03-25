@@ -18,6 +18,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 class AdminController extends BaseAdminController
 {
     /**
+     * Creates and returns a new instance of the User-class.
+     *
      * @return \FOS\UserBundle\Model\UserInterface|mixed
      */
     public function createNewUserEntity()
@@ -26,6 +28,8 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Persists an User entity in the database.
+     *
      * @param User $user
      */
     public function persistUserEntity($user)
@@ -35,6 +39,8 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Updates an User entity.
+     *
      * @param User $user
      */
     public function updateUserEntity($user)
@@ -44,6 +50,10 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Persists a Survey entity in the database.
+     * If the User property in the Survey entity is not set, the currently logged in User will be
+     * attached to the Entity.
+     *
      * @param object $entity
      */
     public function persistSurveyEntity($entity)
@@ -59,6 +69,10 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Action for listing Surveys.
+     * If the currently logged in User has the admin role assigned, every Survey will be included in the response,
+     * otherwise only the Surveys created by the currently logged in User will be included in the response.
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listSurveyAction()
@@ -99,6 +113,11 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Creates an instance of Symfonys FormInterface based on an Entity and EasyAdmin configuration.
+     * Fields wchich has the role property set in the EasyAdmin configuration will be checked against
+     * the roles assigned to the currently logged in user, and if they don't match the fields will be removed
+     * from the form.
+     *
      * @param object $entity
      * @param array  $fields
      * @param string $view
