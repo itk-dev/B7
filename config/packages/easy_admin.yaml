@@ -9,6 +9,7 @@ easy_admin:
     templates:
       layout: 'easy_admin_overrides/layout.html.twig'
     menu:
+      - { entity: 'Survey', icon: 'question', label: 'menu.survey' }
       - { label: 'menu.admin', role: 'ROLE_ADMIN' }
       - { entity: 'User', icon: 'user', label: 'menu.user' }
 
@@ -24,3 +25,24 @@ easy_admin:
           - lastLogin
           - { property: 'plainPassword', type: 'text', type_options: { required: false } }
           - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' } } }
+    Survey:
+      class: App\Entity\Survey
+      role: ROLE_USER
+      list:
+        fields:
+          - id
+          - title
+          - question
+          - { property: 'user', role: ROLE_ADMIN }
+      form:
+        fields:
+          - title
+          - question
+          - positive_follow_up
+          - negative_follow_up
+          - follow_up_text_1
+          - follow_up_text_2
+          - follow_up_text_3
+          - follow_up_text_4
+          - follow_up_text_5
+          - { property: 'user', role: ROLE_ADMIN }
