@@ -7,6 +7,7 @@ System for showing and managing simple surveys.
 - [EasyAdmin](https://symfony.com/doc/master/bundles/EasyAdminBundle/index.html)
 - [EasyAdmin Extension](https://github.com/alterphp/EasyAdminExtensionBundle)
 - [FOSUserBundle](https://symfony.com/doc/master/bundles/FOSUserBundle/index.html)
+- [Encore](https://symfony.com/doc/current/frontend/encore/installation.html) enabled
 
 **Extendings of existing functionality**
 
