@@ -61,7 +61,7 @@
         </div>
 
         <div id="page_login" class="container">
-            <div class="back_button" id="back_button"><img src="img/backbutton.png"/></div>
+            <div class="back_button" id="back_button"><img src="{{ asset('build/img/backbutton.png') }}"/></div>
 
             <div class="content-login">
                 <form id="form_login">
@@ -79,7 +79,7 @@
         </div>
 
         <div id="page_register" class="container">
-            <div class="back_button" id="back_button"><img src="img/backbutton.png"/></div>
+            <div class="back_button" id="back_button"><img src="{{ asset('build/img/backbutton.png') }}"/></div>
 
             <form id="form_register">
                 <fieldset>
@@ -132,7 +132,7 @@
                 <div class="img_div">
                     <img id="smiley2" draggable="false" class="img_smiley" src="{{ asset("/build/img/2.png") }}"/>
                 </div>
-                <div class="img_div">
+                <div class="img_div img_last">
                     <img id="smiley1" draggable="false" class="img_smiley" src="{{ asset("/build/img/1.png") }}"/>
                 </div>
             </div>
@@ -155,11 +155,14 @@
                 <div class="img_div img_last">
                     <img id="smiley1" draggable="false" class="img_smiley" src="{{ asset("/build/img/1.png") }}"/>
                 </div>
-                <div id="table_text" class="table_text"></div>
+                <div id="table_text" class="table_text">
+                    <h1 id="positive">{{ survey.positiveFollowUp }}</h1>
+                    <h1 id="negative">{{ survey.negativeFollowUp }}</h1>
+                </div>
                 <div class="choice-wrapper">
-                    <div class="choice_button choice-first" id="choice1">Fysiske rammer</div>
-                    <div class="choice_button" id="choice2">Personlig betjening</div>
-                    <div class="choice_button last_choice_button choice_last" id="choice3">Andet</div>
+                    <div class="choice_button choice-first" id="choice1">{{ survey.followUpText1 }}</div>
+                    <div class="choice_button" id="choice2">{{ survey.followUpText2 }}</div>
+                    <div class="choice_button last_choice_button choice_last" id="choice3">{{ survey.followUpText3 }}</div>
                 </div>
             </div>
         </div>

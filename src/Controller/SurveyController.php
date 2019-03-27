@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Repository\SurveyRepository;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class SurveyController.
@@ -45,13 +48,24 @@ class SurveyController extends AbstractController
      *
      * @return Response
      */
-    public function reply(int $surveyId, Request $request): Response
+    public function reply(int $surveyId, Request $request, LoggerInterface $logger): Response
     {
         $survey = $this->surveys->find($surveyId);
 
+        if (empty($survey)) {
+            $logger->critical('Replying to survey with id '.$surveyId.' which does not exist!');
+            throw new HttpException(500);
+        }
+
+        $answer = $request->get('smiley');
+        $followUpAnswer = $request->get('what');
+        $createdAt = new \DateTime(\strtotime($request->get('datetime')));
+
         $response = new \App\Entity\Response();
-        $response->setAnswer($request->get('answer'));
-        $response->setFollowUpAnswer($request->get('followUpAnswer'));
+
+        $response->setAnswer($answer);
+        $response->setFollowUpAnswer($followUpAnswer);
+        $response->setCreatedAt($createdAt);
 
         $survey->addResponse($response);
 
@@ -60,6 +74,7 @@ class SurveyController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->redirectToRoute('survey.show', ['surveyId' => $surveyId]);
+        return new JsonResponse(['result' => 'ok']);
+        //return $this->redirectToRoute('survey.show', ['surveyId' => $surveyId]);
     }
 }

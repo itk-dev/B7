@@ -12,7 +12,6 @@ require('../css/app.css');
 // const $ = require('jquery');
 
 import $ from 'jquery';
-
 import survey from './survey';
 
 $(document).ready(function () {
