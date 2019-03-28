@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Repository\ResponseRepository;
 use App\Repository\SurveyRepository;
+use Doctrine\ORM\ORMException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,14 +18,18 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 class SurveyController extends AbstractController
 {
     private $surveys;
+    private $responses;
 
     /**
      * SurveyController constructor.
-     * @param SurveyRepository $surveys
+     *
+     * @param SurveyRepository   $surveys
+     * @param ResponseRepository $responses
      */
-    public function __construct(SurveyRepository $surveys)
+    public function __construct(SurveyRepository $surveys, ResponseRepository $responses)
     {
         $this->surveys = $surveys;
+        $this->responses = $responses;
     }
 
     /**
@@ -72,12 +78,13 @@ class SurveyController extends AbstractController
 
         $survey->addResponse($response);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($response);
-
-        $entityManager->flush();
+        try {
+            $this->responses->add($response);
+        } catch (ORMException $oe) {
+            $logger->critical($oe->getMessage());
+            throw new HttpException(500);
+        }
 
         return new JsonResponse(['result' => 'ok']);
-        //return $this->redirectToRoute('survey.show', ['surveyId' => $surveyId]);
     }
 }
