@@ -70,16 +70,12 @@ class SurveyController extends AbstractController
         $followUpAnswer = $request->get('what');
         $createdAt = new \DateTime(\strtotime($request->get('datetime')));
 
-        $response = new \App\Entity\Response();
-
-        $response->setAnswer($answer);
-        $response->setFollowUpAnswer($followUpAnswer);
-        $response->setCreatedAt($createdAt);
-
-        $survey->addResponse($response);
-
         try {
+            $response = new \App\Entity\Response($survey, $answer, $followUpAnswer, $createdAt);
             $this->responses->add($response);
+        } catch (\InvalidArgumentException $ie) {
+            $logger->critical($ie->getMessage());
+            throw new HttpException(422); // Validation failed.
         } catch (ORMException $oe) {
             $logger->critical($oe->getMessage());
             throw new HttpException(500);

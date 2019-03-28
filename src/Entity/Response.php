@@ -40,12 +40,19 @@ class Response
     /**
      * Response constructor.
      *
-     * Creates and returns a new instance of the Response class with the createdAt property set to the datetime
-     * on creation.
+     * @param Survey    $survey
+     * @param int       $answer
+     * @param int       $followUpAnswer
+     * @param \DateTime $dateTime
+     *
+     * @throws \Exception
      */
-    public function __construct()
+    public function __construct(Survey $survey, int $answer, int $followUpAnswer, \DateTime $dateTime)
     {
-        $this->createdAt = new \DateTime();
+        $this->setSurvey($survey);
+        $this->setAnswer($answer);
+        $this->setFollowUpAnswer($followUpAnswer);
+        $this->setCreatedAt($dateTime);
     }
 
     /**
@@ -91,6 +98,10 @@ class Response
      */
     public function setAnswer(int $answer): self
     {
+        if (0 > $answer || 5 < $answer) {
+            throw new \InvalidArgumentException('Answer must be between 0 and 5');
+        }
+
         $this->answer = $answer;
 
         return $this;
@@ -111,6 +122,10 @@ class Response
      */
     public function setFollowUpAnswer(int $followUpAnswer): self
     {
+        if (0 > $followUpAnswer || 5 < $followUpAnswer) {
+            throw new \InvalidArgumentException('FollowUp answer must be between 0 and 5.');
+        }
+
         $this->followUpAnswer = $followUpAnswer;
 
         return $this;
