@@ -17,17 +17,19 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class SurveyController extends AbstractController
 {
+    private $logger;
     private $surveys;
     private $responses;
 
     /**
      * SurveyController constructor.
-     *
-     * @param SurveyRepository   $surveys
+     * @param LoggerInterface $logger
+     * @param SurveyRepository $surveys
      * @param ResponseRepository $responses
      */
-    public function __construct(SurveyRepository $surveys, ResponseRepository $responses)
+    public function __construct(LoggerInterface $logger, SurveyRepository $surveys, ResponseRepository $responses)
     {
+        $this->logger = $logger;
         $this->surveys = $surveys;
         $this->responses = $responses;
     }
@@ -49,20 +51,19 @@ class SurveyController extends AbstractController
     }
 
     /**
-     * @param int             $surveyId
-     * @param Request         $request
-     * @param LoggerInterface $logger
+     * @param int     $surveyId
+     * @param Request $request
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function reply(int $surveyId, Request $request, LoggerInterface $logger): Response
+    public function reply(int $surveyId, Request $request): Response
     {
         $survey = $this->surveys->find($surveyId);
 
         if (empty($survey)) {
-            $logger->critical('Replying to survey with id '.$surveyId.' which does not exist!');
+            $this->logger->critical('Replying to survey with id '.$surveyId.' which does not exist!');
             throw new HttpException(500);
         }
 
@@ -74,10 +75,10 @@ class SurveyController extends AbstractController
             $response = new \App\Entity\Response($survey, $answer, $followUpAnswer, $createdAt);
             $this->responses->add($response);
         } catch (\InvalidArgumentException $ie) {
-            $logger->critical($ie->getMessage());
+            $this->logger->critical($ie->getMessage());
             throw new HttpException(422); // Validation failed.
         } catch (ORMException $oe) {
-            $logger->critical($oe->getMessage());
+            $this->logger->critical($oe->getMessage());
             throw new HttpException(500);
         }
 
