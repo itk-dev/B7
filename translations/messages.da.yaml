@@ -24,3 +24,5 @@ entity:
     last_login: 'Sidst logget ind'
 User: 'Bruger'
 Survey: 'Spørgeskema'
+action:
+  statistics: 'Statistik'

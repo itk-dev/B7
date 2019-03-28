@@ -5,6 +5,7 @@ namespace App\Controller;
 use AlterPHP\EasyAdminExtensionBundle\Controller\EasyAdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AdminController.
@@ -114,6 +115,14 @@ class AdminController extends BaseAdminController
         $this->entity['list']['fields'] = $this->getFilteredListOfFieldsOnRole($fields);
 
         return parent::listAction();
+    }
+
+    /**
+     * @return Response
+     */
+    public function statisticsAction(): Response
+    {
+        return $this->render('statistics.html.twig');
     }
 
     /**
