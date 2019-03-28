@@ -64,19 +64,19 @@ class Response
     }
 
     /**
-     * @return Survey|null
+     * @return Survey
      */
-    public function getSurvey(): ?Survey
+    public function getSurvey(): Survey
     {
         return $this->survey;
     }
 
     /**
-     * @param Survey|null $survey
+     * @param Survey $survey
      *
      * @return Response
      */
-    public function setSurvey(?Survey $survey): self
+    public function setSurvey(Survey $survey): self
     {
         $this->survey = $survey;
 
@@ -84,9 +84,9 @@ class Response
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getAnswer(): ?int
+    public function getAnswer(): int
     {
         return $this->answer;
     }
@@ -108,9 +108,9 @@ class Response
     }
 
     /**
-     * @return int|null
+     * @return int
      */
-    public function getFollowUpAnswer(): ?int
+    public function getFollowUpAnswer(): int
     {
         return $this->followUpAnswer;
     }
@@ -132,9 +132,9 @@ class Response
     }
 
     /**
-     * @return \DateTimeInterface|null
+     * @return \DateTimeInterface
      */
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
