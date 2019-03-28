@@ -72,39 +72,11 @@ class Response
     }
 
     /**
-     * @param Survey $survey
-     *
-     * @return Response
-     */
-    public function setSurvey(Survey $survey): self
-    {
-        $this->survey = $survey;
-
-        return $this;
-    }
-
-    /**
      * @return int
      */
     public function getAnswer(): int
     {
         return $this->answer;
-    }
-
-    /**
-     * @param int $answer
-     *
-     * @return Response
-     */
-    public function setAnswer(int $answer): self
-    {
-        if (0 > $answer || 5 < $answer) {
-            throw new \InvalidArgumentException('Answer must be between 0 and 5');
-        }
-
-        $this->answer = $answer;
-
-        return $this;
     }
 
     /**
@@ -116,11 +88,47 @@ class Response
     }
 
     /**
+     * @return \DateTimeInterface
+     */
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param Survey $survey
+     *
+     * @return Response
+     */
+    private function setSurvey(Survey $survey): self
+    {
+        $this->survey = $survey;
+
+        return $this;
+    }
+
+    /**
+     * @param int $answer
+     *
+     * @return Response
+     */
+    private function setAnswer(int $answer): self
+    {
+        if (0 > $answer || 5 < $answer) {
+            throw new \InvalidArgumentException('Answer must be between 0 and 5');
+        }
+
+        $this->answer = $answer;
+
+        return $this;
+    }
+
+    /**
      * @param int $followUpAnswer
      *
      * @return Response
      */
-    public function setFollowUpAnswer(int $followUpAnswer): self
+    private function setFollowUpAnswer(int $followUpAnswer): self
     {
         if (0 > $followUpAnswer || 5 < $followUpAnswer) {
             throw new \InvalidArgumentException('FollowUp answer must be between 0 and 5.');
@@ -132,19 +140,11 @@ class Response
     }
 
     /**
-     * @return \DateTimeInterface
-     */
-    public function getCreatedAt(): \DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    /**
      * @param \DateTimeInterface $createdAt
      *
      * @return Response
      */
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    private function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
