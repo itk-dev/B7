@@ -43,10 +43,13 @@ class SurveyController extends AbstractController
     }
 
     /**
-     * @param int     $surveyId
-     * @param Request $request
+     * @param int             $surveyId
+     * @param Request         $request
+     * @param LoggerInterface $logger
      *
      * @return Response
+     *
+     * @throws \Exception
      */
     public function reply(int $surveyId, Request $request, LoggerInterface $logger): Response
     {
