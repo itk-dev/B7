@@ -9,25 +9,16 @@ export default function ($) {
         init: function () {
 
             // Find container divs.
-            let pageWelcomeDiv = $("#page_welcome");
-            let pageLoginDiv = $("#page_login");
-            let pageRegisterDiv = $("#page_register");
             let pageMainDiv = $("#page_main");
             let pageChoiceDiv = $("#page_choice");
             let pageThanksDiv = $("#page_thanks");
 
             // Get the content of containers.
-            this.pageWelcome = pageWelcomeDiv.html();
-            this.pageLogin = pageLoginDiv.html();
-            this.pageRegister = pageRegisterDiv.html();
             this.pageMain = pageMainDiv.html();
             this.pageChoice = pageChoiceDiv.html();
             this.pageThanks = pageThanksDiv.html();
 
             // Remove the containers.
-            pageWelcomeDiv.remove();
-            pageLoginDiv.remove();
-            pageRegisterDiv.remove();
             pageMainDiv.remove();
             pageChoiceDiv.remove();
             pageThanksDiv.remove();
@@ -149,7 +140,7 @@ export default function ($) {
                 let datetime = (new Date()).getTime();
 
                 // Post data to server
-                app.sendResultToServer(app.macid, nSmiley, 0, datetime, function () {
+                app.sendResultToServer(nSmiley, 0, datetime, function () {
                     // Test if the connection to the server is up
                     app.ping(
                         // If the connection is up, commit from local storage.
@@ -185,7 +176,7 @@ export default function ($) {
             let datetime = (new Date()).getTime();
 
             // Post data to server
-            app.sendResultToServer(app.macid, nSmiley, nWhat, datetime, function () {
+            app.sendResultToServer(nSmiley, nWhat, datetime, function () {
                 // Test if the connection to the server is up
                 app.ping(
                     // If the connection is up, commit from local storage.
@@ -207,19 +198,18 @@ export default function ($) {
 
         /**
          * Sends a single result to the server.
-         * @param macid the macid of the machine.
          * @param smiley the selected smiley.
          * @param what the selected reason for the smiley.
          * @param datetime the time of the result.
          * @param callback the function to call when the function is done.
          */
-        sendResultToServer: function (macid, smiley, what, datetime, callback) {
+        sendResultToServer: function (smiley, what, datetime, callback) {
             // Send the result to the server.
             $.ajax({
                 //url: "1/reply",
                 url: window.location.pathname + "/reply",
                 type: "POST",
-                data: {action: "result", macid: macid, smiley: smiley, what: what, datetime: datetime},
+                data: {action: "result", smiley: smiley, what: what, datetime: datetime},
                 dataType: "json"
             })
                 .done(function (response, textStatus, jqXHR) {
@@ -228,13 +218,13 @@ export default function ($) {
                     if (resp.result != "ok") {
                         // If an error occurred, save the entry to local storage.
 
-                        app.saveEntryToLocalStorage(macid, smiley, what, datetime);
+                        app.saveEntryToLocalStorage(smiley, what, datetime);
                     }
                     callback();
                 })
                 .fail(function (jqXHR, textStatus, errorThrown) {
                     // When the commit fails, save to local storage.
-                    app.saveEntryToLocalStorage(macid, smiley, what, datetime);
+                    app.saveEntryToLocalStorage(smiley, what, datetime);
                     callback();
                 });
         },
@@ -252,7 +242,7 @@ export default function ($) {
                 let ent = list.pop();
 
                 // Commit the entry and then recursively commit the rest of the list.
-                app.sendResultToServer(ent.macid, ent.smiley, ent.what, ent.datetime, function () {
+                app.sendResultToServer(ent.smiley, ent.what, ent.datetime, function () {
                     app.commitListRecurse(list, callback);
                 });
             } else {
@@ -283,16 +273,14 @@ export default function ($) {
 
         /**
          * Save a result to local storage.
-         * @param macid the macid of the machine.
          * @param smiley the selected smiley.
          * @param what the reason for the selected smiley.
          * @param datetime the time of the result.
          */
         // Save an entry to local storage
-        saveEntryToLocalStorage: function (macid, smiley, what, datetime) {
+        saveEntryToLocalStorage: function (smiley, what, datetime) {
             if (typeof(Storage) !== "undefined") {
                 let ent = {
-                    macid: macid,
                     smiley: smiley,
                     what: what,
                     datetime: datetime
