@@ -23,8 +23,8 @@ class SurveyController extends AbstractController
 
     /**
      * SurveyController constructor.
-     * @param LoggerInterface $logger
-     * @param SurveyRepository $surveys
+     * @param LoggerInterface    $logger
+     * @param SurveyRepository   $surveys
      * @param ResponseRepository $responses
      */
     public function __construct(LoggerInterface $logger, SurveyRepository $surveys, ResponseRepository $responses)
@@ -35,6 +35,8 @@ class SurveyController extends AbstractController
     }
 
     /**
+     * Displays a specific Survey.
+     *
      * @param int $surveyId
      *
      * @return Response
@@ -51,6 +53,9 @@ class SurveyController extends AbstractController
     }
 
     /**
+     * Handles a reply to a specific Survey.
+     * It expects to the smiley, what and datetime keys to be present in request data.
+     *
      * @param int     $surveyId
      * @param Request $request
      *
