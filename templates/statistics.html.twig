@@ -1,5 +1,10 @@
 {% extends "@EasyAdmin/page/content.html.twig" %}
 
+{% block body_javascript %}
+    {{ encore_entry_script_tags('statistics') }}
+{% endblock body_javascript %}
+
 {% block content_title %}
     {{ 'action.statistics'|trans }}
 {% endblock %}
+
