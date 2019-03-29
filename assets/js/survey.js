@@ -118,10 +118,8 @@ export default function ($) {
             // Change the text according to the selected smiley.
             $("#positive, #negative").hide();
             if (nSmiley > 3) {
-                //$("#table_text").html("<h1>Hvad var godt?</h1>");
                 $("#positive").show();
             } else {
-                //$("#table_text").html("<h1>Hvad kunne være bedre?</h1>");
                 $("#negative").show();
             }
 
@@ -206,7 +204,6 @@ export default function ($) {
         sendResultToServer: function (smiley, what, datetime, callback) {
             // Send the result to the server.
             $.ajax({
-                //url: "1/reply",
                 url: window.location.pathname + "/reply",
                 type: "POST",
                 data: {action: "result", smiley: smiley, what: what, datetime: datetime},
@@ -217,7 +214,6 @@ export default function ($) {
 
                     if (resp.result != "ok") {
                         // If an error occurred, save the entry to local storage.
-
                         app.saveEntryToLocalStorage(smiley, what, datetime);
                     }
                     callback();
@@ -306,13 +302,11 @@ export default function ($) {
             $.ajax({
                 url: window.location,
                 type: "GET"
-            })
-                .done(function (response, textStatus, jqXHR) {
+            }).done(function (response, textStatus, jqXHR) {
                     success();
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
+            }).fail(function (jqXHR, textStatus, errorThrown) {
                     failure();
-                });
+            });
         },
 
         /**
