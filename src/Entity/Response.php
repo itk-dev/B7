@@ -40,12 +40,19 @@ class Response
     /**
      * Response constructor.
      *
-     * Creates and returns a new instance of the Response class with the createdAt property set to the datetime
-     * on creation.
+     * @param Survey    $survey
+     * @param int       $answer
+     * @param int       $followUpAnswer
+     * @param \DateTime $dateTime
+     *
+     * @throws \Exception
      */
-    public function __construct()
+    public function __construct(Survey $survey, int $answer, int $followUpAnswer, \DateTime $dateTime)
     {
-        $this->createdAt = new \DateTime();
+        $this->setSurvey($survey);
+        $this->setAnswer($answer);
+        $this->setFollowUpAnswer($followUpAnswer);
+        $this->setCreatedAt($dateTime);
     }
 
     /**
@@ -57,19 +64,43 @@ class Response
     }
 
     /**
-     * @return Survey|null
+     * @return Survey
      */
-    public function getSurvey(): ?Survey
+    public function getSurvey(): Survey
     {
         return $this->survey;
     }
 
     /**
-     * @param Survey|null $survey
+     * @return int
+     */
+    public function getAnswer(): int
+    {
+        return $this->answer;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFollowUpAnswer(): int
+    {
+        return $this->followUpAnswer;
+    }
+
+    /**
+     * @return \DateTimeInterface
+     */
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param Survey $survey
      *
      * @return Response
      */
-    public function setSurvey(?Survey $survey): self
+    private function setSurvey(Survey $survey): self
     {
         $this->survey = $survey;
 
@@ -77,31 +108,19 @@ class Response
     }
 
     /**
-     * @return int|null
-     */
-    public function getAnswer(): ?int
-    {
-        return $this->answer;
-    }
-
-    /**
      * @param int $answer
      *
      * @return Response
      */
-    public function setAnswer(int $answer): self
+    private function setAnswer(int $answer): self
     {
+        if (0 > $answer || 5 < $answer) {
+            throw new \InvalidArgumentException('Answer must be between 0 and 5');
+        }
+
         $this->answer = $answer;
 
         return $this;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getFollowUpAnswer(): ?int
-    {
-        return $this->followUpAnswer;
     }
 
     /**
@@ -109,19 +128,15 @@ class Response
      *
      * @return Response
      */
-    public function setFollowUpAnswer(int $followUpAnswer): self
+    private function setFollowUpAnswer(int $followUpAnswer): self
     {
+        if (0 > $followUpAnswer || 5 < $followUpAnswer) {
+            throw new \InvalidArgumentException('FollowUp answer must be between 0 and 5.');
+        }
+
         $this->followUpAnswer = $followUpAnswer;
 
         return $this;
-    }
-
-    /**
-     * @return \DateTimeInterface|null
-     */
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
     }
 
     /**
@@ -129,7 +144,7 @@ class Response
      *
      * @return Response
      */
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    private function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 

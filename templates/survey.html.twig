@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+
+        <title>B7</title>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <!-- Basic Page Setup -->
+        <div id="main" class="main">
+
+        </div>
+        <div id="footer" class="footer">
+            <div class="footer_left">
+                <img draggable="false" src="{{ asset("/build/img/logo_b7.png") }}" alt=""/>
+            </div>
+            <div class="footer_right">
+                <img draggable="false" src="{{ asset("/build/img/logo_aak.png") }}" alt=""/>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page_main" class="container">
+            <h1 class="image-header">{{ survey.question }}</h1>
+            <div class="image-wrapper">
+                <div class="img_div">
+                    <img id="smiley5" draggable="false" class="img_smiley" src="{{ asset("/build/img/5.png") }}"/>
+                </div>
+                <div class="img_div">
+                    <img id="smiley4" draggable="false" class="img_smiley" src="{{ asset("/build/img/4.png") }}"/>
+                </div>
+                <div class="img_div">
+                    <img id="smiley3" draggable="false" class="img_smiley" src="{{ asset("/build/img/3.png") }}"/>
+                </div>
+                <div class="img_div">
+                    <img id="smiley2" draggable="false" class="img_smiley" src="{{ asset("/build/img/2.png") }}"/>
+                </div>
+                <div class="img_div img_last">
+                    <img id="smiley1" draggable="false" class="img_smiley" src="{{ asset("/build/img/1.png") }}"/>
+                </div>
+            </div>
+        </div>
+
+        <div id="page_choice" class="container">
+            <div class="image-wrapper">
+                <div class="img_div">
+                    <img id="smiley5" draggable="false" class="img_smiley" src="{{ asset("/build/img/5.png") }}"/>
+                </div>
+                <div class="img_div">
+                    <img id="smiley4" draggable="false" class="img_smiley" src="{{ asset("/build/img/4.png") }}"/>
+                </div>
+                <div class="img_div">
+                    <img id="smiley3" draggable="false" class="img_smiley" src="{{ asset("/build/img/3.png") }}"/>
+                </div>
+                <div class="img_div">
+                    <img id="smiley2" draggable="false" class="img_smiley" src="{{ asset("/build/img/2.png") }}"/>
+                </div>
+                <div class="img_div img_last">
+                    <img id="smiley1" draggable="false" class="img_smiley" src="{{ asset("/build/img/1.png") }}"/>
+                </div>
+                <div id="table_text" class="table_text">
+                    <h1 id="positive">{{ survey.positiveFollowUp }}</h1>
+                    <h1 id="negative">{{ survey.negativeFollowUp }}</h1>
+                </div>
+                <div class="choice-wrapper">
+                    <div class="choice_button choice-first" id="choice1">{{ survey.followUpText1 }}</div>
+                    <div class="choice_button" id="choice2">{{ survey.followUpText2 }}</div>
+                    <div class="choice_button last_choice_button choice_last" id="choice3">{{ survey.followUpText3 }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="page_thanks" class="container">
+            <div class="header"></div>
+            <h1 class="thanks-header">Tak for dit svar</h1>
+            <div class="thanks-text">
+                <p>Vi bruger dit besyv til at forbedre vores service.</p>
+            </div>
+        </div>
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </body>
+</html>

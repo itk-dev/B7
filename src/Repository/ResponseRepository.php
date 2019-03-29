@@ -22,4 +22,20 @@ class ResponseRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Response::class);
     }
+
+
+    /**
+     * @param Response $response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function add(Response $response)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $entityManager->persist($response);
+
+        $entityManager->flush();
+    }
 }

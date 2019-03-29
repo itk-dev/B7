@@ -1,3 +1,11 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+survey.show:
+  path: /survey/{surveyId}
+  controller: App\Controller\SurveyController::show
+  requirements:
+    surveyId: '\d+'
+survey.post:
+  path: /survey/{surveyId}/reply
+  controller: App\Controller\SurveyController::reply
+  methods: POST
+  requirements:
+    surveyId: '\d+'
