@@ -49,6 +49,12 @@ services:
       - "1025"
       - "8025"
 
+  yarn:
+    image: itkdev/yarn:latest
+    volumes:
+      - .:/app:delegated
+      - yarn-cache:/usr/local/share/.cache/yarn
+
   reverse-proxy:
     image: traefik  # The official Traefik docker image
     command: --api --docker  # Enables the web UI and tells Traefik to listen to docker
@@ -57,3 +63,7 @@ services:
       - "8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock  # So that Traefik can listen to the Docker events
+
+# Drush cache volume to persist cache between runs.
+volumes:
+  yarn-cache:
