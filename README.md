@@ -66,6 +66,19 @@ The [itkdev-docker-compose](https://github.com/aakb/itkdev-docker#helper-scripts
 
 ### Installing
 
+Create local copy of .env file in your project directory:
+```
+$ cp .env .env.local
+```
+
+And fill out the database settings and mail settings in your .env.local:
+```
+# .env.local
+DATABASE_URL=mysql://db:db@mariadb_1:3306/db
+
+MAILER_URL=smtp://mailhog_1
+```
+
 Start docker containers:
 
 ```
