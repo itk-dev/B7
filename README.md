@@ -74,9 +74,8 @@ $ cp .env .env.local
 And fill out the database settings and mail settings in your .env.local:
 ```
 # .env.local
-DATABASE_URL=mysql://db:db@mariadb_1:3306/db
-
-MAILER_URL=smtp://mailhog_1
+DATABASE_URL=mysql://db:db@mariadb:3306/db
+MAILER_URL=smtp://mailhog
 ```
 
 Start docker containers:
@@ -97,13 +96,19 @@ $ itkdev-docker-compose bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 Create a super admin user:
-
 ```
 $ itkdev-docker-compose bin/console fos:user:create --super-admin
 ```
+
+Install front-end tools and run encore (webpack)
+```
+$ itkdev-docker-compose run yarn install
+$ itkdev-docker-compose run yarn encore dev
+```
+
 
 Open up the url for the nginx container:
 ```
 $ itkdev-docker-compose url # Outputs the url to the site
 $ itkdev-docker-compose open # Opens the site in the default browser
-``` 
+```

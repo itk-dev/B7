@@ -1,4 +1,7 @@
 {
+    "alterphp/easyadmin-extension-bundle": {
+        "version": "v2.1.2"
+    },
     "composer/semver": {
         "version": "1.5.0"
     },
