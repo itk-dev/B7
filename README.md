@@ -74,9 +74,8 @@ $ cp .env .env.local
 And fill out the database settings and mail settings in your .env.local:
 ```
 # .env.local
-DATABASE_URL=mysql://db:db@mariadb_1:3306/db
-
-MAILER_URL=smtp://mailhog_1
+DATABASE_URL=mysql://db:db@mariadb:3306/db
+MAILER_URL=smtp://mailhog
 ```
 
 Start docker containers:
