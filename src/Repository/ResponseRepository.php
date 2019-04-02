@@ -16,13 +16,13 @@ class ResponseRepository extends ServiceEntityRepository
 {
     /**
      * ResponseRepository constructor.
+     *
      * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Response::class);
     }
-
 
     /**
      * @param Response $response

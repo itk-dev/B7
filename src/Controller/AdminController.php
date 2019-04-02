@@ -18,7 +18,7 @@ class AdminController extends BaseAdminController
      */
     public static function getSubscribedServices(): array
     {
-        return \array_merge(parent::getSubscribedServices(), ['fos_user.user_manager' => UserManagerInterface::class]);
+        return array_merge(parent::getSubscribedServices(), ['fos_user.user_manager' => UserManagerInterface::class]);
     }
 
     /**
