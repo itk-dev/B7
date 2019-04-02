@@ -1,6 +1,8 @@
 <?php
 
 $finder = PhpCsFixer\Finder::create()
+     ->exclude('Migrations')
+     ->notPath('Kernel.php')
      ->in(__DIR__.'/{src,tests}')
 ;
 
