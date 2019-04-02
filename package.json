@@ -14,6 +14,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "chart.js": "^2.8.0"
+        "chart.js": "^2.8.0",
+        "jquery-datetimepicker": "^2.5.21"
     }
 }
