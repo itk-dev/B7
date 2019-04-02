@@ -32,3 +32,8 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> custom ###
+checkstyle-result.xml
+###< custom ###
+
