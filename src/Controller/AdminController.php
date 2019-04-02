@@ -5,7 +5,6 @@ namespace App\Controller;
 use AlterPHP\EasyAdminExtensionBundle\Controller\EasyAdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AdminController.
@@ -19,7 +18,7 @@ class AdminController extends BaseAdminController
      */
     public static function getSubscribedServices(): array
     {
-        return \array_merge(parent::getSubscribedServices(), ['fos_user.user_manager' => UserManagerInterface::class]);
+        return array_merge(parent::getSubscribedServices(), ['fos_user.user_manager' => UserManagerInterface::class]);
     }
 
     /**
@@ -115,14 +114,6 @@ class AdminController extends BaseAdminController
         $this->entity['list']['fields'] = $this->getFilteredListOfFieldsOnRole($fields);
 
         return parent::listAction();
-    }
-
-    /**
-     * @return Response
-     */
-    public function statisticsAction(): Response
-    {
-        return $this->render('statistics.html.twig');
     }
 
     /**
