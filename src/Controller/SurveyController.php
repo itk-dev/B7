@@ -23,6 +23,7 @@ class SurveyController extends AbstractController
 
     /**
      * SurveyController constructor.
+     *
      * @param LoggerInterface    $logger
      * @param SurveyRepository   $surveys
      * @param ResponseRepository $responses
@@ -74,7 +75,7 @@ class SurveyController extends AbstractController
 
         $answer = $request->get('smiley');
         $followUpAnswer = $request->get('what');
-        $createdAt = new \DateTime(\strtotime($request->get('datetime')));
+        $createdAt = new \DateTime(strtotime($request->get('datetime')));
 
         try {
             $response = new \App\Entity\Response($survey, $answer, $followUpAnswer, $createdAt);

@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
-
-    <arg name="basepath" value="."/>
-    <arg name="cache" value=".phpcs-cache"/>
-    <arg name="colors"/>
-    <arg name="extensions" value="php"/>
-
-    <rule ref="Symfony"/>
+<ruleset name="PHP_CodeSniffer">
+    <description>The coding standard.</description>
 
     <file>src/</file>
     <file>tests/</file>
@@ -16,9 +9,8 @@
     <exclude-pattern>src/Kernel.php</exclude-pattern>
     <exclude-pattern>src/Migrations/</exclude-pattern>
 
-    <!-- No warnings -->
+    <!-- Do not print warnings -->
     <arg value="n"/>
-    <!-- Show progress -->
-    <arg value="p"/>
 
+    <rule ref="PSR2"/>
 </ruleset>
