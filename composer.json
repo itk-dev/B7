@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "alterphp/easyadmin-extension-bundle": "^2.1",
+        "beberlei/doctrineextensions": "^1.2",
         "easycorp/easyadmin-bundle": "^2.1",
         "friendsofsymfony/user-bundle": "~2.0",
         "sensio/framework-extra-bundle": "^5.1",
