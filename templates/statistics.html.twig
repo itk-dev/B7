@@ -1,5 +1,10 @@
 {% extends "@EasyAdmin/page/content.html.twig" %}
 
+ {% block head_stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('statistics') }}
+ {% endblock %}
+
 {% block body_javascript %}
     {{ encore_entry_script_tags('statistics') }}
 {% endblock body_javascript %}
@@ -8,3 +13,48 @@
     {{ 'action.statistics'|trans }}
 {% endblock %}
 
+{% block global_actions %}
+    {{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Periode</span>
+            </div>
+            {{ form_widget(form.from, {'attr': {'class': 'form-comtrol'}, 'id': 'from'}) }}
+
+            <div class="input-group-prepend input-group-append">
+                <span class="input-group-text">til</span>
+            </div>
+
+            {{ form_widget(form.to, {'attr': {'class': 'form-comtrol'}, 'id': 'to'}) }}
+        </div>
+
+        {{ form_row(form._token) }}
+
+    <button type="submit" class="btn btn-primary">Vælg</button>
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}
+
+{% block main %}
+
+    <div id="survey-votes" data-votes='{{ answers|json_encode }}'></div>
+    <div id="survey-average-votes" data-votes='{{ averageAnswers|json_encode }}'></div>
+
+    <div id="all-votes-labels" data-labels='{{ allVotesLabels|json_encode|raw }}'></div>
+    <div id="all-votes" data-votes='{{ allVotesAverage|json_encode|raw }}'></div>
+
+    <div>
+        <h5>Denne periodes svar sammenlignet med svar fra forudgående periode</h5>
+        <canvas id="survey-statistics"></canvas>
+    </div>
+
+    <div>
+        <h5>Denne periodes svar</h5>
+        <canvas id="percentage"></canvas>
+    </div>
+
+    <div>
+        <h5>Svar-gennemsnit over tid</h5>
+        <canvas id="time-line"></canvas>
+    </div>
+{% endblock %}

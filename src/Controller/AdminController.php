@@ -5,6 +5,10 @@ namespace App\Controller;
 use AlterPHP\EasyAdminExtensionBundle\Controller\EasyAdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Class AdminController.
@@ -117,6 +121,88 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Custom action for showing a statistics page for a specific Survey.
+     *
+     * @return Response
+     *
+     * @throws \Exception
+     */
+    public function statisticsAction(): Response
+    {
+        $surveyId = $this->request->query->get('id');
+
+        $dateFormat = 'd/m/Y';
+
+        $defaultFrom = (new \DateTime())->sub(new \DateInterval('P7D'));
+        $defaultTo = new \DateTime();
+
+        $defaultValues = [
+            'from' => $defaultFrom->format($dateFormat),
+            'to' => $defaultTo->format($dateFormat),
+        ];
+        $form = $this->createFormBuilder($defaultValues)
+            ->add('from', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new DateTime(['format' => $dateFormat]),
+                ],
+            ])
+            ->add('to', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new DateTime(['format' => $dateFormat]),
+                ],
+            ])
+            ->getForm();
+
+        $form->handleRequest($this->request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+
+            $answers = $this->getAnswersBetweenDates(
+                $surveyId,
+                date_create_from_format($dateFormat, $formData['from']),
+                date_create_from_format($dateFormat, $formData['to'])
+            );
+
+            $averageAnswers = $this->getAnswersBetweenDates(
+                $surveyId,
+                new \DateTime(date($dateFormat, strtotime(0))),
+                date_create_from_format($dateFormat, $formData['from'])
+            );
+
+            $avgAnswersWithLabels = $this->getAverageAnswersOnDatesWithLabels($surveyId);
+
+            return $this->render('statistics.html.twig', [
+                'form' => $form->createView(),
+                'answers' => $answers,
+                'averageAnswers' => $averageAnswers,
+                'allVotesLabels' => $avgAnswersWithLabels['labels'],
+                'allVotesAverage' => $avgAnswersWithLabels['values'],
+            ]);
+        }
+
+        $defaultPeriodAnswers = $this->getAnswersBetweenDates($surveyId, $defaultFrom, $defaultTo);
+
+        $averageAnswers = $this->getAnswersBetweenDates(
+            $surveyId,
+            new \DateTime(date($dateFormat, strtotime(0))),
+            $defaultFrom
+        );
+
+        $avgAnswersWithLabels = $this->getAverageAnswersOnDatesWithLabels($surveyId);
+
+        return $this->render('statistics.html.twig', [
+            'form' => $form->createView(),
+            'answers' => $defaultPeriodAnswers,
+            'averageAnswers' => $averageAnswers,
+            'allVotesLabels' => $avgAnswersWithLabels['labels'],
+            'allVotesAverage' => $avgAnswersWithLabels['values'],
+        ]);
+    }
+
+    /**
      * Creates an instance of Symfonys FormInterface based on an Entity and EasyAdmin configuration.
      * Fields wchich has the role property set in the EasyAdmin configuration will be checked against
      * the roles assigned to the currently logged in user, and if they don't match the fields will be removed
@@ -185,5 +271,114 @@ class AdminController extends BaseAdminController
         $dqlFilter .= 'AND '.$newDqlFilter;
 
         return $dqlFilter;
+    }
+
+    /**
+     * Returns a list of answer-percentages in a period sorted by answer group (1-5).
+     *
+     * @param int       $surveyId
+     * @param \DateTime $fromDate
+     * @param \DateTime $toDate
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
+    private function getAnswersBetweenDates(int $surveyId, \DateTime $fromDate, \DateTime $toDate): array
+    {
+        $entityManager = $this->getDoctrine()->getEntityManager();
+
+        $query = $entityManager->createQuery('
+            SELECT r.answer,
+                   COUNT(r.answer) as answers
+            FROM App\Entity\Response r
+            WHERE r.survey = :surveyId
+            AND r.createdAt BETWEEN :from AND :to
+            GROUP BY r.answer
+        ');
+
+        $query->setParameter('surveyId', $surveyId);
+        $query->setParameter('from', $fromDate->format('Y-m-d'));
+        $query->setParameter('to', $toDate->add(new \DateInterval('P1D'))->format('Y-m-d'));
+
+        $values = $query->getResult();
+
+        $totalVotes = 0;
+
+        foreach ($values as $value) {
+            $totalVotes += $value['answers'];
+        }
+
+        $newValues = [];
+
+        for ($i = 1; $i < 6; ++$i) {
+            $answers = 0;
+            foreach ($values as $value) {
+                if ($i === $value['answer']) {
+                    $answers = floor((int) $value['answers'] / $totalVotes * 100);
+                }
+            }
+
+            $newValues[] = $answers;
+        }
+
+        return $newValues;
+    }
+
+    /**
+     * Returns the average of answers for a Survey sorted by date in ascending order.
+     * The array returned has to keys, labels which contains an array with the dates that have answers,
+     * and values which contains an array with the average of answers on a date. The first entry in the values
+     * array is the average answers for the first entry in the labels array.
+     *
+     * @param int $surveyId
+     *
+     * @return array
+     */
+    private function getAverageAnswersOnDatesWithLabels(int $surveyId): array
+    {
+        $entityManager = $this->getDoctrine()->getEntityManager();
+
+        $query = $entityManager->createQuery('
+            SELECT r.answer,
+                   COUNT(r.answer) as answers,
+                   DATE(r.createdAt) as dateCreated
+            FROM App\Entity\Response r
+            WHERE r.survey = :surveyId
+            GROUP BY r.answer, dateCreated
+            ORDER BY dateCreated ASC
+        ');
+
+        $query->setParameter('surveyId', $surveyId);
+        $result = $query->getResult();
+
+        $labels = [];
+
+        foreach ($result as $entry) {
+            $labels[] = $entry['dateCreated'];
+        }
+
+        $labels = array_values(array_unique($labels));
+
+        $values = [];
+
+        $totalSumAnswers = 0;
+        $totalSumVotes = 0;
+        foreach ($labels as $date) {
+            foreach ($result as $entry) {
+                if ($date === $entry['dateCreated']) {
+                    $totalSumAnswers += $entry['answers'];
+                    $totalSumVotes += $entry['answers'] * $entry['answer'];
+                }
+            }
+            $values[] = $totalSumVotes / $totalSumAnswers;
+            $totalSumAnswers = 0;
+            $totalSumVotes = 0;
+        }
+
+        return [
+            'labels' => $labels,
+            'values' => $values,
+        ];
     }
 }
