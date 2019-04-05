@@ -38,4 +38,56 @@ class ResponseRepository extends ServiceEntityRepository
 
         $entityManager->flush();
     }
+
+    /**
+     * Returns a list of answer-percentages in a period sorted by answer group (1-5).
+     *
+     * @param int       $surveyId
+     * @param \DateTime $fromDate
+     * @param \DateTime $toDate
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
+    public function getAnswersBetweenDates(int $surveyId, \DateTime $fromDate, \DateTime $toDate): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery('
+            SELECT r.answer,
+                   COUNT(r.answer) as answers
+            FROM App\Entity\Response r
+            WHERE r.survey = :surveyId
+            AND r.createdAt BETWEEN :from AND :to
+            GROUP BY r.answer
+        ');
+
+        $query->setParameter('surveyId', $surveyId);
+        $query->setParameter('from', $fromDate->format('Y-m-d'));
+        $query->setParameter('to', $toDate->add(new \DateInterval('P1D'))->format('Y-m-d'));
+
+        $values = $query->getResult();
+
+        $totalVotes = 0;
+
+        foreach ($values as $value) {
+            $totalVotes += $value['answers'];
+        }
+
+        $newValues = [];
+
+        for ($i = 1; $i < 6; ++$i) {
+            $answers = 0;
+            foreach ($values as $value) {
+                if ($i === $value['answer']) {
+                    $answers = floor((int) $value['answers'] / $totalVotes * 100);
+                }
+            }
+
+            $newValues[] = $answers;
+        }
+
+        return $newValues;
+    }
 }
