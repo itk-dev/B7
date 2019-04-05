@@ -36,9 +36,3 @@ statistics:
     survey_statistics: 'Denne periodes svar sammenlignet med svar fra forudgående periode'
     percentage: 'Denne periodes svar'
     time_line: 'Svar-gennemsnit over tid'
-  answer_labels:
-    - 'Meget tilfreds'
-    - 'Tilfreds'
-    - 'Hverken/eller'
-    - 'Utilfreds'
-    - 'Meget utilfreds'
