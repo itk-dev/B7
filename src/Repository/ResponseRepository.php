@@ -90,4 +90,61 @@ class ResponseRepository extends ServiceEntityRepository
 
         return $newValues;
     }
+
+    /**
+     * Returns the average of answers for a Survey sorted by date in ascending order.
+     * The array returned has to keys, labels which contains an array with the dates that have answers,
+     * and values which contains an array with the average of answers on a date. The first entry in the values
+     * array is the average answers for the first entry in the labels array.
+     *
+     * @param int $surveyId
+     *
+     * @return array
+     */
+    public function getAverageAnswersOnDatesWithLabels(int $surveyId): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery('
+            SELECT r.answer,
+                   COUNT(r.answer) as answers,
+                   DATE(r.createdAt) as dateCreated
+            FROM App\Entity\Response r
+            WHERE r.survey = :surveyId
+            GROUP BY r.answer, dateCreated
+            ORDER BY dateCreated ASC
+        ');
+
+        $query->setParameter('surveyId', $surveyId);
+        $result = $query->getResult();
+
+        $labels = [];
+
+        foreach ($result as $entry) {
+            $labels[] = $entry['dateCreated'];
+        }
+
+        $labels = array_values(array_unique($labels));
+
+        $values = [];
+
+        $totalSumAnswers = 0;
+        $totalSumVotes = 0;
+        foreach ($labels as $date) {
+            foreach ($result as $entry) {
+                if ($date === $entry['dateCreated']) {
+                    $totalSumAnswers += $entry['answers'];
+                    $totalSumVotes += $entry['answers'] * $entry['answer'];
+                }
+            }
+            $values[] = $totalSumVotes / $totalSumAnswers;
+            $totalSumAnswers = 0;
+            $totalSumVotes = 0;
+        }
+
+        return [
+            'labels' => $labels,
+            'values' => $values,
+        ];
+    }
 }
