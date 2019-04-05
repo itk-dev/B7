@@ -131,6 +131,13 @@ class ResponseRepository extends ServiceEntityRepository
 
         $labels = array_values(array_unique($labels));
 
+        // Calculating the average answer for each date.
+        // We summarize the number of answers found for each date
+        // and we calculate the sum of the value of the answers given by
+        // multiplying the answer value with the times the value has been
+        // selected. Finally we calculate the actual average by dividing
+        // the sum of the value of the answers given and the total of
+        // answers given.
         $values = [];
 
         $totalSumAnswers = 0;
