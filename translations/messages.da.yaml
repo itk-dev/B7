@@ -24,3 +24,15 @@ entity:
     last_login: 'Sidst logget ind'
 User: 'Bruger'
 Survey: 'Spørgeskema'
+action:
+  statistics: 'Statistik'
+statistics:
+  form:
+    label:
+      from: 'Periode'
+      to: 'til'
+    submit: 'Vælg'
+  heading:
+    survey_statistics: 'Denne periodes svar sammenlignet med svar fra forudgående periode'
+    percentage: 'Denne periodes svar'
+    time_line: 'Svar-gennemsnit over tid'

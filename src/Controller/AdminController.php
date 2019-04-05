@@ -5,6 +5,10 @@ namespace App\Controller;
 use AlterPHP\EasyAdminExtensionBundle\Controller\EasyAdminController as BaseAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Class AdminController.
@@ -114,6 +118,90 @@ class AdminController extends BaseAdminController
         $this->entity['list']['fields'] = $this->getFilteredListOfFieldsOnRole($fields);
 
         return parent::listAction();
+    }
+
+    /**
+     * Custom action for showing a statistics page for a specific Survey.
+     *
+     * @return Response
+     *
+     * @throws \Exception
+     */
+    public function statisticsAction(): Response
+    {
+        $responses = $this->getDoctrine()->getRepository(\App\Entity\Response::class);
+
+        $surveyId = $this->request->query->get('id');
+
+        $dateFormat = 'd/m/Y';
+
+        $defaultFrom = (new \DateTime())->sub(new \DateInterval('P7D'));
+        $defaultTo = new \DateTime();
+
+        $defaultValues = [
+            'from' => $defaultFrom->format($dateFormat),
+            'to' => $defaultTo->format($dateFormat),
+        ];
+        $form = $this->createFormBuilder($defaultValues)
+            ->add('from', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new DateTime(['format' => $dateFormat]),
+                ],
+            ])
+            ->add('to', TextType::class, [
+                'constraints' => [
+                    new NotBlank(),
+                    new DateTime(['format' => $dateFormat]),
+                ],
+            ])
+            ->getForm();
+
+        $form->handleRequest($this->request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+
+            $answers = $responses->getAnswersBetweenDates(
+                $surveyId,
+                date_create_from_format($dateFormat, $formData['from']),
+                date_create_from_format($dateFormat, $formData['to'])
+            );
+
+            $averageAnswers = $responses->getAnswersBetweenDates(
+                $surveyId,
+                new \DateTime(date($dateFormat, strtotime(0))),
+                date_create_from_format($dateFormat, $formData['from'])
+            );
+
+            $avgAnswersWithLabels = $responses->getAverageAnswersOnDatesWithLabels($surveyId);
+
+            return $this->render('statistics.html.twig', [
+                'form' => $form->createView(),
+                'answers' => $answers,
+                'averageAnswers' => $averageAnswers,
+                'allVotesLabels' => $avgAnswersWithLabels['labels'],
+                'allVotesAverage' => $avgAnswersWithLabels['values'],
+            ]);
+        }
+
+        $defaultPeriodAnswers = $responses->getAnswersBetweenDates($surveyId, $defaultFrom, $defaultTo);
+
+        $averageAnswers = $responses->getAnswersBetweenDates(
+            $surveyId,
+            new \DateTime(date($dateFormat, strtotime(0))),
+            $defaultFrom
+        );
+
+        $avgAnswersWithLabels = $responses->getAverageAnswersOnDatesWithLabels($surveyId);
+
+        return $this->render('statistics.html.twig', [
+            'form' => $form->createView(),
+            'answers' => $defaultPeriodAnswers,
+            'averageAnswers' => $averageAnswers,
+            'allVotesLabels' => $avgAnswersWithLabels['labels'],
+            'allVotesAverage' => $avgAnswersWithLabels['values'],
+        ]);
     }
 
     /**
