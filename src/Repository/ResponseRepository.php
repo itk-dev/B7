@@ -69,19 +69,24 @@ class ResponseRepository extends ServiceEntityRepository
 
         $values = $query->getResult();
 
-        $totalVotes = 0;
+        $totalAnswers = 0;
 
         foreach ($values as $value) {
-            $totalVotes += $value['answers'];
+            $totalAnswers += $value['answers'];
         }
 
+        // The code iterate through 1 to 5 as thay are the only available answer options.
+        // Each time we check if there is a value available in the query result and if we
+        // find one we calculate the percentage the number of times the answer option has
+        // been selected holds of the count of all answers given.
+        // If no value is found we add 0 as the result of the calculation.
         $newValues = [];
 
         for ($i = 1; $i < 6; ++$i) {
             $answers = 0;
             foreach ($values as $value) {
                 if ($i === $value['answer']) {
-                    $answers = floor((int) $value['answers'] / $totalVotes * 100);
+                    $answers = floor((int) $value['answers'] / $totalAnswers * 100);
                 }
             }
 
