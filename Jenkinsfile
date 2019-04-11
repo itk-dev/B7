@@ -21,7 +21,7 @@ pipeline {
                         stage('PHP7 compatibility') {
                             steps {
                                 sh 'vendor/bin/phan --allow-polyfill-parser'
-                                
+
                             }
                         }
                         stage('Coding standards') {
@@ -30,7 +30,7 @@ pipeline {
                                 sh 'vendor/bin/php-cs-fixer --config=.php_cs.dist fix --dry-run --verbose'
                                 sh 'vendor/bin/twigcs lint templates'
                             }
-                        }   
+                        }
                     }
                 }
                 stage('Yarn - encore') {
@@ -63,8 +63,8 @@ pipeline {
                 // Run composer.
                 sh "ansible srvitkphp72stg -m shell -a 'cd /home/deploy/www/b7_srvitkphp72stg_itkdev_dk/htdocs; composer install'"
 
-                // Copy encore assects.
-                sh "ansible srvitkphp72stg -m synchronize -a 'src=${WORKSPACE}/public/build dest=/home/deploy/www/b7_srvitkphp72stg_itkdev_dk/htdocs/public/build'"
+                // Copy encore assets.
+                sh "ansible srvitkphp72stg -m synchronize -a 'src=${WORKSPACE}/public/build/ dest=/home/deploy/www/b7_srvitkphp72stg_itkdev_dk/htdocs/public/build'"
             }
         }
         stage('Deployment staging') {
@@ -93,8 +93,8 @@ pipeline {
                 // Run composer.
                 sh "ansible srvitkphp72 -m shell -a 'cd /home/deploy/www/b7_itkdev_dk/htdocs; composer install'"
 
-                // Copy encore assects.
-                sh "ansible srvitkphp72 -m synchronize -a 'src=$WORKSPACE/public/build dest=/home/deploy/www/b7_itkdev_dk/htdocs/public/build'"
+                // Copy encore assets.
+                sh "ansible srvitkphp72 -m synchronize -a 'src=$WORKSPACE/public/build/ dest=/home/deploy/www/b7_itkdev_dk/htdocs/public/build'"
             }
         }
     }
