@@ -9,7 +9,7 @@ easy_admin:
     templates:
       layout: 'easy_admin_overrides/layout.html.twig'
     menu:
-      - { entity: 'Survey', icon: 'question', label: 'menu.survey' }
+      - { entity: 'Survey', icon: 'question', label: 'menu.survey', default: true }
       - { label: 'menu.admin', role: 'ROLE_ADMIN' }
       - { entity: 'User', icon: 'user', label: 'menu.user' }
 
