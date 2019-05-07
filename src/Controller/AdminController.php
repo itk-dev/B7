@@ -205,21 +205,25 @@ class AdminController extends BaseAdminController
     }
 
     /**
+
+    /**
      * Redirects to a specific Survey based on a query parameter.
      * The query parameter 'id' has to be present.
      *
      * @return Response
+     *
+     * @throws \HttpException
      */
     public function redirectToSurveyAction(): Response
     {
         if (!$this->request->query->has('id')) {
-            throw new Exception('Survey ID not present as query parameter.');
+            throw new \HttpException('Survey ID not present as query parameter', 500);
         }
 
         $surveyId = $this->request->query->get('id');
 
         if (empty($surveyId)) {
-            throw new Exception('Survey ID not present as query parameter value.');
+            throw new \HttpException('Survey ID not present as query parameter value', 500);
         }
 
         return $this->redirectToRoute('survey.show', ['surveyId' => $surveyId]);
