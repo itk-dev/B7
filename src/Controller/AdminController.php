@@ -205,6 +205,27 @@ class AdminController extends BaseAdminController
     }
 
     /**
+     * Redirects to a specific Survey based on a query parameter.
+     * The query parameter 'id' has to be present.
+     *
+     * @return Response
+     */
+    public function redirectToSurveyAction(): Response
+    {
+        if (!$this->request->query->has('id')) {
+            throw new Exception('Survey ID not present as query parameter.');
+        }
+
+        $surveyId = $this->request->query->get('id');
+
+        if (empty($surveyId)) {
+            throw new Exception('Survey ID not present as query parameter value.');
+        }
+
+        return $this->redirectToRoute('survey.show', ['surveyId' => $surveyId]);
+    }
+
+    /**
      * Creates an instance of Symfonys FormInterface based on an Entity and EasyAdmin configuration.
      * Fields wchich has the role property set in the EasyAdmin configuration will be checked against
      * the roles assigned to the currently logged in user, and if they don't match the fields will be removed

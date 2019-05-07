@@ -35,6 +35,7 @@ easy_admin:
       role: ROLE_USER
       list:
         actions:
+          - { name: 'redirectToSurvey', label: 'action.redirect_to_survey' }
           - { name: 'statistics', label: 'action.statistics' }
         fields:
           - id

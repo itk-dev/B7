@@ -26,6 +26,7 @@ User: 'Bruger'
 Survey: 'Spørgeskema'
 action:
   statistics: 'Statistik'
+  redirect_to_survey: 'Vis'
 statistics:
   form:
     label:
