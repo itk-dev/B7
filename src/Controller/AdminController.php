@@ -205,8 +205,6 @@ class AdminController extends BaseAdminController
     }
 
     /**
-
-    /**
      * Redirects to a specific Survey based on a query parameter.
      * The query parameter 'id' has to be present.
      *
