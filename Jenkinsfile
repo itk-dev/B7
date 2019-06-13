@@ -91,7 +91,7 @@ pipeline {
                 sh "ansible srvitkphp72 -m shell -a 'cd /home/deploy/www/b7_itkdev_dk/htdocs; git reset origin/${BRANCH_NAME} --hard'"
 
                 // Run composer.
-                sh "ansible srvitkphp72 -m shell -a 'cd /home/deploy/www/b7_itkdev_dk/htdocs; composer install'"
+                sh "ansible srvitkphp72 -m shell -a 'cd /home/deploy/www/b7_itkdev_dk/htdocs; composer install --no-dev -o'"
 
                 // Copy encore assets.
                 sh "ansible srvitkphp72 -m synchronize -a 'src=$WORKSPACE/public/build/ dest=/home/deploy/www/b7_itkdev_dk/htdocs/public/build'"
