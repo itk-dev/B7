@@ -78,7 +78,6 @@ pipeline {
         stage('Deployment production') {
             when {
                 branch 'master'
-                tag '*'
             }
             steps {
                 timeout(time: 30, unit: 'MINUTES') {
