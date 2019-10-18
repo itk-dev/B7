@@ -74,6 +74,11 @@ class Survey
      */
     private $responses;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $neutralFollowUp;
+
     public function __construct()
     {
         $this->responses = new ArrayCollection();
@@ -324,6 +329,18 @@ class Survey
                 $response->setSurvey(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNeutralFollowUp(): ?string
+    {
+        return $this->neutralFollowUp;
+    }
+
+    public function setNeutralFollowUp(string $neutralFollowUp): self
+    {
+        $this->neutralFollowUp = $neutralFollowUp;
 
         return $this;
     }

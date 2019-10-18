@@ -48,6 +48,7 @@ easy_admin:
           - { property: 'title', label: 'entity.survey.title', help: 'entity.survey.title_help' }
           - { property: 'question', label: 'entity.survey.question', help: 'entity.survey.question_help' }
           - { property: 'positiveFollowUp', label: 'entity.survey.positive_follow_up', help: 'entity.survey.positive_follow_up_help' }
+          - { property: 'neutralFollowUp', label: 'entity.survey.neutral_follow_up', help: 'entity.survey.neutral_follow_up_help' }
           - { property: 'negativeFollowUp', label: 'entity.survey.negative_follow_up', help: 'entity.survey.negative_follow_up_help' }
           - { property: 'followUpText1', label: 'entity.survey.follow_up_text_1', help: 'entity.survey.follow_up_text_help' }
           - { property: 'followUpText2', label: 'entity.survey.follow_up_text_2', help: 'entity.survey.follow_up_text_help' }
