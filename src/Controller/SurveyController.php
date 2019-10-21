@@ -90,4 +90,9 @@ class SurveyController extends AbstractController
 
         return new JsonResponse(['result' => 'ok']);
     }
+
+    public function explanation(Request $request): Response
+    {
+        return $this->render('survey_explanation.html.twig');
+    }
 }

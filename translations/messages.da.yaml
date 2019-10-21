@@ -2,6 +2,7 @@ menu:
   admin: 'Administrator'
   user: 'Brugere'
   survey: 'Spørgeskemaer'
+  survey_explanation: 'Spørgeskema forklaring'
 user_menu:
   profile: 'Profil'
 entity:
@@ -44,3 +45,41 @@ statistics:
     survey_statistics: 'Denne periodes svar sammenlignet med svar fra forudgående periode'
     percentage: 'Denne periodes svar'
     time_line: 'Svar-gennemsnit over tid'
+
+survey_explanation:
+  title: 'Spørgeskema forklaring'
+  content: '
+  <p>Denne side vil gennemgå den formular der benyttes, når der oprettes et nyt spørgeskema.</p>
+  <h4>Titel</h4>
+  <p>Spørgeskemaets titel, der kun vil optræde i listen over spørgeskemaer. Titlen er kun til intern brug, og ingen der besvarer et spørgeskema vil se titlen.</p>
+  <h4>Spørgsmål</h4>
+  <p>Selve spørgsmålet som man skal tage stilling til, når man besvarer et spørgeskema.</p>
+  <p>Spørgsmålet besvares ved at vælge en smiley på en række af fem smileys, hvor den første smiley er meget glad, den midterste er neutral og den sidste er meget sur. Derfor bør spørgsmålet formuleres så det kan besvares med denne skala.</p>
+  <p>Eksempler på spørgsmål:
+  <ul>
+  <li><p>Hvor glad var du for arrangementet?</p></li>
+  </ul>
+  <h4>Opfølgning</h4>
+  <p>Efter at valgt en smiley til at besvare spørgsmålet, præsenteres man for endnu et spørgsmål, baseret på hvilken smiley man har valgt:</p>
+  <ul>
+  <li><p>Meget glad eller næsten meget glad smiley vil vise den positive opfølgning.</p></li>
+  <li><p>Midterste smiley vil vise den neutrale opfølgning.</p></li>
+  <li><p>Meget sur eller næsten meget sur smiley vil vise den negative opfølgning.</p></li>
+  </ul>
+  <p>Det er de samme svarmulighder man bliver præsenteret for når opfølgningen vises, så teskten til de forskellige opfølgninger bør afspejle dette.</p>
+  <p>Eksempler på opfølgning:</p>
+  <ul>
+  <li>Positiv: Hvad var bedst ved arrangementet?</li>
+  <li>Neutral: Hvad kunne du have undværet?</li>
+  <li>Negativ: Hvad var dårligst ved arrangementet?</li>
+  </ul>
+  <h4>Svarmuligheder</h4>
+  <p>Disse muligheder vises når opfølgningen bliver præsenteret.</p>
+  <p>De skal være passende for hver variant af opfølgning der vises.</p>
+  <p>Eksempler på svarmuligheder:</p>
+  <ul>
+  <li>Borgmesterens tale</li>
+  <li>Buffeten</li>
+  <li>Sangteksterne</li>
+  </ul>
+  '
