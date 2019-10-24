@@ -9,3 +9,6 @@ survey.post:
   methods: POST
   requirements:
     surveyId: '\d+'
+survey.explanation:
+  path: /survey/explanation
+  controller: App\Controller\SurveyController:explanation

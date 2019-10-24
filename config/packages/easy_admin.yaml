@@ -10,6 +10,7 @@ easy_admin:
       layout: 'easy_admin_overrides/layout.html.twig'
     menu:
       - { entity: 'Survey', icon: 'question', label: 'menu.survey', default: true }
+      - { label: 'menu.survey_explanation', route: 'survey.explanation' }
       - { label: 'menu.admin', role: 'ROLE_ADMIN' }
       - { entity: 'User', icon: 'user', label: 'menu.user' }
 
@@ -45,13 +46,14 @@ easy_admin:
           - { property: 'user', role: ROLE_ADMIN, label: 'entity.survey.user' }
       form:
         fields:
-          - { property: 'title', label: 'entity.survey.title' }
-          - { property: 'question', label: 'entity.survey.question' }
-          - { property: 'positiveFollowUp', label: 'entity.survey.positive_follow_up' }
-          - { property: 'negativeFollowUp', label: 'entity.survey.negative_follow_up' }
-          - { property: 'followUpText1', label: 'entity.survey.follow_up_text_1' }
-          - { property: 'followUpText2', label: 'entity.survey.follow_up_text_2' }
-          - { property: 'followUpText3', label: 'entity.survey.follow_up_text_3' }
-          - { property: 'followUpText4', label: 'entity.survey.follow_up_text_4' }
-          - { property: 'followUpText5', label: 'entity.survey.follow_up_text_5' }
+          - { property: 'title', label: 'entity.survey.title', help: 'entity.survey.title_help' }
+          - { property: 'question', label: 'entity.survey.question', help: 'entity.survey.question_help' }
+          - { property: 'positiveFollowUp', label: 'entity.survey.positive_follow_up', help: 'entity.survey.positive_follow_up_help' }
+          - { property: 'neutralFollowUp', label: 'entity.survey.neutral_follow_up', help: 'entity.survey.neutral_follow_up_help' }
+          - { property: 'negativeFollowUp', label: 'entity.survey.negative_follow_up', help: 'entity.survey.negative_follow_up_help' }
+          - { property: 'followUpText1', label: 'entity.survey.follow_up_text_1', help: 'entity.survey.follow_up_text_help' }
+          - { property: 'followUpText2', label: 'entity.survey.follow_up_text_2', help: 'entity.survey.follow_up_text_help' }
+          - { property: 'followUpText3', label: 'entity.survey.follow_up_text_3', help: 'entity.survey.follow_up_text_help' }
+          - { property: 'followUpText4', label: 'entity.survey.follow_up_text_4', help: 'entity.survey.follow_up_text_help' }
+          - { property: 'followUpText5', label: 'entity.survey.follow_up_text_5', help: 'entity.survey.follow_up_text_help' }
           - { property: 'user', role: ROLE_ADMIN, label: 'entity.survey.user' }

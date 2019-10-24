@@ -1,7 +1,4 @@
 {
-    "allocine/twigcs": {
-        "version": "v3.1.3"
-    },
     "alterphp/easyadmin-extension-bundle": {
         "version": "v2.1.2"
     },
@@ -124,9 +121,6 @@
     "escapestudios/symfony2-coding-standard": {
         "version": "3.x-dev"
     },
-    "facebook/webdriver": {
-        "version": "1.6.0"
-    },
     "felixfbecker/advanced-json-rpc": {
         "version": "v3.0.3"
     },
@@ -147,6 +141,9 @@
     },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
+    },
+    "friendsoftwig/twigcs": {
+        "version": "v3.1.3"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -421,9 +418,6 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.6"
-    },
-    "symfony/panther": {
-        "version": "v0.3.0"
     },
     "symfony/phpunit-bridge": {
         "version": "4.1",

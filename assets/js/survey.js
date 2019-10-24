@@ -116,11 +116,13 @@ export default function ($) {
             });
 
             // Change the text according to the selected smiley.
-            $("#positive, #negative").hide();
+            $("#positive, #neutral, #negative").hide();
             if (nSmiley > 3) {
                 $("#positive").show();
-            } else {
+            } else if (nSmiley < 3) {
                 $("#negative").show();
+            } else {
+                $("#neutral").show();
             }
 
             // Show the selected smiley and hide the others.

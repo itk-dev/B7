@@ -39,27 +39,27 @@ class Survey
     private $negativeFollowUp;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      */
     private $followUpText1;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      */
     private $followUpText2;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      */
     private $followUpText3;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $followUpText4;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $followUpText5;
 
@@ -73,6 +73,11 @@ class Survey
      * @ORM\OneToMany(targetEntity="App\Entity\Response", mappedBy="survey")
      */
     private $responses;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $neutralFollowUp;
 
     public function __construct()
     {
@@ -324,6 +329,18 @@ class Survey
                 $response->setSurvey(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNeutralFollowUp(): ?string
+    {
+        return $this->neutralFollowUp;
+    }
+
+    public function setNeutralFollowUp(string $neutralFollowUp): self
+    {
+        $this->neutralFollowUp = $neutralFollowUp;
 
         return $this;
     }
