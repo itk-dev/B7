@@ -84,25 +84,17 @@ class Survey
         $this->responses = new ArrayCollection();
     }
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return string|null
-     */
     public function getQuestion(): ?string
     {
         return $this->question;
     }
 
     /**
-     * @param string $question
-     *
      * @return Survey
      */
     public function setQuestion(string $question): self
@@ -112,17 +104,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
     /**
-     * @param string $title
-     *
      * @return Survey
      */
     public function setTitle(string $title): self
@@ -132,17 +119,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getPositiveFollowUp(): ?string
     {
         return $this->positiveFollowUp;
     }
 
     /**
-     * @param string $positiveFollowUp
-     *
      * @return Survey
      */
     public function setPositiveFollowUp(string $positiveFollowUp): self
@@ -152,17 +134,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getNegativeFollowUp(): ?string
     {
         return $this->negativeFollowUp;
     }
 
     /**
-     * @param string $negativeFollowUp
-     *
      * @return Survey
      */
     public function setNegativeFollowUp(string $negativeFollowUp): self
@@ -172,17 +149,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFollowUpText1(): ?string
     {
         return $this->followUpText1;
     }
 
     /**
-     * @param string $followUpText1
-     *
      * @return Survey
      */
     public function setFollowUpText1(string $followUpText1): self
@@ -192,17 +164,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFollowUpText2(): ?string
     {
         return $this->followUpText2;
     }
 
     /**
-     * @param string $followUpText2
-     *
      * @return Survey
      */
     public function setFollowUpText2(string $followUpText2): self
@@ -212,17 +179,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFollowUpText3(): ?string
     {
         return $this->followUpText3;
     }
 
     /**
-     * @param string $followUpText3
-     *
      * @return Survey
      */
     public function setFollowUpText3(string $followUpText3): self
@@ -232,17 +194,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFollowUpText4(): ?string
     {
         return $this->followUpText4;
     }
 
     /**
-     * @param string|null $followUpText4
-     *
      * @return Survey
      */
     public function setFollowUpText4(?string $followUpText4): self
@@ -252,17 +209,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getFollowUpText5(): ?string
     {
         return $this->followUpText5;
     }
 
     /**
-     * @param string|null $followUpText5
-     *
      * @return Survey
      */
     public function setFollowUpText5(?string $followUpText5): self
@@ -272,17 +224,12 @@ class Survey
         return $this;
     }
 
-    /**
-     * @return User|null
-     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
     /**
-     * @param User|null $user
-     *
      * @return Survey
      */
     public function setUser(?User $user): self
@@ -301,8 +248,6 @@ class Survey
     }
 
     /**
-     * @param Response $response
-     *
      * @return Survey
      */
     public function addResponse(Response $response): self
@@ -316,8 +261,6 @@ class Survey
     }
 
     /**
-     * @param Response $response
-     *
      * @return Survey
      */
     public function removeResponse(Response $response): self

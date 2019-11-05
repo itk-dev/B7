@@ -6,10 +6,10 @@ use App\Repository\ResponseRepository;
 use App\Repository\SurveyRepository;
 use Doctrine\ORM\ORMException;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
@@ -23,10 +23,6 @@ class SurveyController extends AbstractController
 
     /**
      * SurveyController constructor.
-     *
-     * @param LoggerInterface    $logger
-     * @param SurveyRepository   $surveys
-     * @param ResponseRepository $responses
      */
     public function __construct(LoggerInterface $logger, SurveyRepository $surveys, ResponseRepository $responses)
     {
@@ -37,10 +33,6 @@ class SurveyController extends AbstractController
 
     /**
      * Displays a specific Survey.
-     *
-     * @param int $surveyId
-     *
-     * @return Response
      */
     public function show(int $surveyId): Response
     {
@@ -56,11 +48,6 @@ class SurveyController extends AbstractController
     /**
      * Handles a reply to a specific Survey.
      * It expects to the smiley, what and datetime keys to be present in request data.
-     *
-     * @param int     $surveyId
-     * @param Request $request
-     *
-     * @return Response
      *
      * @throws \Exception
      */

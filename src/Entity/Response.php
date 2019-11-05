@@ -40,11 +40,6 @@ class Response
     /**
      * Response constructor.
      *
-     * @param Survey    $survey
-     * @param int       $answer
-     * @param int       $followUpAnswer
-     * @param \DateTime $dateTime
-     *
      * @throws \Exception
      */
     public function __construct(Survey $survey, int $answer, int $followUpAnswer, \DateTime $dateTime)
@@ -55,49 +50,32 @@ class Response
         $this->setCreatedAt($dateTime);
     }
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @return Survey
-     */
     public function getSurvey(): Survey
     {
         return $this->survey;
     }
 
-    /**
-     * @return int
-     */
     public function getAnswer(): int
     {
         return $this->answer;
     }
 
-    /**
-     * @return int
-     */
     public function getFollowUpAnswer(): int
     {
         return $this->followUpAnswer;
     }
 
-    /**
-     * @return \DateTimeInterface
-     */
     public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
     /**
-     * @param Survey $survey
-     *
      * @return Response
      */
     private function setSurvey(Survey $survey): self
@@ -108,8 +86,6 @@ class Response
     }
 
     /**
-     * @param int $answer
-     *
      * @return Response
      */
     private function setAnswer(int $answer): self
@@ -124,8 +100,6 @@ class Response
     }
 
     /**
-     * @param int $followUpAnswer
-     *
      * @return Response
      */
     private function setFollowUpAnswer(int $followUpAnswer): self
@@ -140,8 +114,6 @@ class Response
     }
 
     /**
-     * @param \DateTimeInterface $createdAt
-     *
      * @return Response
      */
     private function setCreatedAt(\DateTimeInterface $createdAt): self
