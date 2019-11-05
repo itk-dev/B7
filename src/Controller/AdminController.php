@@ -17,9 +17,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class AdminController extends BaseAdminController
 {
-    /**
-     * @return array
-     */
     public static function getSubscribedServices(): array
     {
         return array_merge(parent::getSubscribedServices(), ['fos_user.user_manager' => UserManagerInterface::class]);
@@ -123,8 +120,6 @@ class AdminController extends BaseAdminController
     /**
      * Custom action for showing a statistics page for a specific Survey.
      *
-     * @return Response
-     *
      * @throws \Exception
      */
     public function statisticsAction(): Response
@@ -207,8 +202,6 @@ class AdminController extends BaseAdminController
     /**
      * Redirects to a specific Survey based on a query parameter.
      * The query parameter 'id' has to be present.
-     *
-     * @return Response
      *
      * @throws \HttpException
      */

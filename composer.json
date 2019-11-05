@@ -96,6 +96,16 @@
         "check-coding-standards": [
             "@check-coding-standards/php-cs-fixer",
             "@check-coding-standards/phpcs"
+        ],
+        "apply-coding-standards/php-cs-fixer": [
+            "php-cs-fixer --config=.php_cs.dist fix"
+        ],
+        "apply-coding-standards/phpcs": [
+            "phpcbf --standard=phpcs.xml.dist"
+        ],
+        "apply-coding-standards": [
+            "@apply-coding-standards/php-cs-fixer",
+            "@apply-coding-standards/phpcs"
         ]
     },
     "conflict": {

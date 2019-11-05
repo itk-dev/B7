@@ -16,8 +16,6 @@ class ResponseRepository extends ServiceEntityRepository
 {
     /**
      * ResponseRepository constructor.
-     *
-     * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
@@ -25,8 +23,6 @@ class ResponseRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Response $response
-     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -41,12 +37,6 @@ class ResponseRepository extends ServiceEntityRepository
 
     /**
      * Returns a list of answer-percentages in a period sorted by answer group (1-5).
-     *
-     * @param int       $surveyId
-     * @param \DateTime $fromDate
-     * @param \DateTime $toDate
-     *
-     * @return array
      *
      * @throws \Exception
      */
@@ -101,10 +91,6 @@ class ResponseRepository extends ServiceEntityRepository
      * The array returned has to keys, labels which contains an array with the dates that have answers,
      * and values which contains an array with the average of answers on a date. The first entry in the values
      * array is the average answers for the first entry in the labels array.
-     *
-     * @param int $surveyId
-     *
-     * @return array
      */
     public function getAverageAnswersOnDatesWithLabels(int $surveyId): array
     {

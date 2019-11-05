@@ -16,8 +16,6 @@ class SurveyRepository extends ServiceEntityRepository
 {
     /**
      * SurveyRepository constructor.
-     *
-     * @param RegistryInterface $registry
      */
     public function __construct(RegistryInterface $registry)
     {
