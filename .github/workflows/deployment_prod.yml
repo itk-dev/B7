@@ -46,9 +46,9 @@ jobs:
           command: |
             cd ${{ secrets.APP_PATH_PROD }}
             git clean -d --force
-            git checkout develop
+            git checkout master
             git fetch
-            git reset origin/develop --hard
+            git reset origin/master --hard
             composer install --no-dev -o
             bin/console cache:clear --no-debug
           host: ${{ secrets.HOST_PROD }}
