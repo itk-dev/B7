@@ -22,10 +22,10 @@ jobs:
           restore-keys: yarn-
 
       - name: Install yarn packages
-        run: docker run -v $PWD:/app:rw -v ${{ steps.composer-cache.outputs.dir }}:/usr/local/share/.cache/yarn/v6:rw itkdev/yarn:latest install
+        run: docker run -v $PWD:/app:rw -v ${{ steps.yarn-cache.outputs.dir }}:/usr/local/share/.cache/yarn/v6:rw itkdev/yarn:latest install
 
       - name: Build assets
-        run: docker run -v $PWD:/app:rw -v ${{ steps.composer-cache.outputs.dir }}:/usr/local/share/.cache/yarn/v6:rw itkdev/yarn:latest build
+        run: docker run -v $PWD:/app:rw -v ${{ steps.yarn-cache.outputs.dir }}:/usr/local/share/.cache/yarn/v6:rw itkdev/yarn:latest build
 
       - name: Sync assets to remote server
         uses: itk-dev/actions-rsync@master
@@ -36,6 +36,10 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           cert: ${{ secrets.PUBLIC_KEY_CERT }}
 
+  remote:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Run remote commands
         uses: itk-dev/actions-remote-ssh@master
         with:
