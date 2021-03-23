@@ -139,6 +139,9 @@
             ".php_cs.dist"
         ]
     },
+    "friendsofphp/proxy-manager-lts": {
+        "version": "v1.0.3"
+    },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
@@ -147,6 +150,15 @@
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "laminas/laminas-code": {
+        "version": "3.4.1"
+    },
+    "laminas/laminas-eventmanager": {
+        "version": "3.2.1"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.1.1"
     },
     "league/uri-components": {
         "version": "1.8.2"
@@ -283,6 +295,9 @@
     "symfony/cache": {
         "version": "v4.2.3"
     },
+    "symfony/cache-contracts": {
+        "version": "v1.1.10"
+    },
     "symfony/config": {
         "version": "v4.2.3"
     },
@@ -326,6 +341,9 @@
     "symfony/dependency-injection": {
         "version": "v4.2.3"
     },
+    "symfony/deprecation-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/doctrine-bridge": {
         "version": "v4.2.3"
     },
@@ -335,8 +353,14 @@
     "symfony/dotenv": {
         "version": "v4.2.3"
     },
+    "symfony/error-handler": {
+        "version": "v4.4.20"
+    },
     "symfony/event-dispatcher": {
         "version": "v4.2.3"
+    },
+    "symfony/event-dispatcher-contracts": {
+        "version": "v1.1.9"
     },
     "symfony/expression-language": {
         "version": "v4.2.3"
@@ -380,6 +404,9 @@
             "src/Controller/.gitignore",
             "src/Kernel.php"
         ]
+    },
+    "symfony/http-client-contracts": {
+        "version": "v2.3.1"
     },
     "symfony/http-foundation": {
         "version": "v4.2.3"
@@ -450,6 +477,9 @@
     "symfony/polyfill-intl-idn": {
         "version": "v1.10.0"
     },
+    "symfony/polyfill-intl-normalizer": {
+        "version": "v1.22.1"
+    },
     "symfony/polyfill-mbstring": {
         "version": "v1.10.0"
     },
@@ -458,6 +488,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.12.0"
+    },
+    "symfony/polyfill-php80": {
+        "version": "v1.22.1"
     },
     "symfony/process": {
         "version": "v4.2.3"
@@ -516,6 +549,9 @@
     "symfony/serializer-pack": {
         "version": "v1.0.2"
     },
+    "symfony/service-contracts": {
+        "version": "v2.2.0"
+    },
     "symfony/stopwatch": {
         "version": "v4.2.3"
     },
@@ -551,6 +587,9 @@
             "config/packages/translation.yaml",
             "translations/.gitignore"
         ]
+    },
+    "symfony/translation-contracts": {
+        "version": "v2.3.0"
     },
     "symfony/twig-bridge": {
         "version": "v4.2.3"
