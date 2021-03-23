@@ -3,6 +3,7 @@ menu:
   user: 'Brugere'
   survey: 'Spørgeskemaer'
   survey_explanation: 'Spørgeskema forklaring'
+  response: 'Besvarelser'
 user_menu:
   profile: 'Profil'
 entity:
