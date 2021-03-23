@@ -63,6 +63,12 @@ easy_admin:
       role: ROLE_USER
       list:
         actions: ['-new', '-edit', 'show']
-        batch_actions: ['delete']
+        batch_actions: [{ name: 'delete', ask_confirm: true }]
+        fields:
+          - id
+          - { property: 'answer', label: 'entity.response.answer' }
+          - { property: 'followUpAnswer', label: 'entity.response.follow_up_answer' }
+          - { property: 'createdAt', label: 'entity.response.created_at' }
+          - { property: 'survey', label: 'entity.response.survey' }
       show:
         actions: ['-edit']
