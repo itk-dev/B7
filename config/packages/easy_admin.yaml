@@ -38,6 +38,7 @@ easy_admin:
         actions:
           - { name: 'redirectToSurvey', label: 'action.redirect_to_survey' }
           - { name: 'statistics', label: 'action.statistics' }
+          - { name: 'exportResponses', label: 'action.export_responses'}
         fields:
           - id
           - { property: 'title', label: 'entity.survey.title' }
