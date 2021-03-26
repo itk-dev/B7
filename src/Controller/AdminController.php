@@ -68,11 +68,11 @@ class AdminController extends BaseAdminController
 
         $response = new StreamedResponse();
 
-        $boldStyle = (new StyleBuilder())
-            ->setFontBold()
-            ->build();
+        $response->setCallback(function () use ($iterableSurveyRecords, $writer, $survey, $smileys, $followUpAnswers, $followUpQuestions) {
+            $boldStyle = (new StyleBuilder())
+                ->setFontBold()
+                ->build();
 
-        $response->setCallback(function () use ($iterableSurveyRecords, $writer, $boldStyle, $survey, $smileys, $followUpAnswers, $followUpQuestions) {
             $rows = [
                 WriterEntityFactory::createRow([
                     WriterEntityFactory::createCell('Titel', $boldStyle),
