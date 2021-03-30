@@ -34,7 +34,6 @@ class AdminController extends BaseAdminController
         $surveyId = $this->request->query->get('id');
         $entityManager = $this->em;
 
-        // @TODO: Extract answers and questions from the survey to the spreadsheet.
         /** @var Survey $survey */
         $survey = $entityManager->getRepository(Survey::class)->find($surveyId);
 
@@ -60,7 +59,7 @@ class AdminController extends BaseAdminController
 
         $iterableSurveyRecords = SimpleBatchIteratorAggregate::fromQuery(
             $query,
-            100 // flush/clear after 100 iterations
+            100
         );
 
         $writer = WriterEntityFactory::createXLSXWriter();
