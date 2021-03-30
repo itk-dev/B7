@@ -72,3 +72,12 @@ services:
     ports:
       - "1025"
       - "8025"
+
+  yarn:
+    image: itkdev/yarn:latest
+    volumes:
+      - .:/app:delegated
+      - yarn-cache:/usr/local/share/.cache/yarn
+
+volumes:
+  yarn-cache:

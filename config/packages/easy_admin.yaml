@@ -10,6 +10,7 @@ easy_admin:
       layout: 'easy_admin_overrides/layout.html.twig'
     menu:
       - { entity: 'Survey', icon: 'question', label: 'menu.survey', default: true }
+      - { entity: 'Response', icon: 'smile-o', label: 'menu.response'}
       - { label: 'menu.survey_explanation', route: 'survey.explanation' }
       - { label: 'menu.admin', role: 'ROLE_ADMIN' }
       - { entity: 'User', icon: 'user', label: 'menu.user' }
@@ -38,6 +39,7 @@ easy_admin:
         actions:
           - { name: 'redirectToSurvey', label: 'action.redirect_to_survey' }
           - { name: 'statistics', label: 'action.statistics' }
+          - { name: 'exportResponses', label: 'action.export_responses'}
         fields:
           - id
           - { property: 'title', label: 'entity.survey.title' }
@@ -57,3 +59,17 @@ easy_admin:
           - { property: 'followUpText4', label: 'entity.survey.follow_up_text_4', help: 'entity.survey.follow_up_text_help' }
           - { property: 'followUpText5', label: 'entity.survey.follow_up_text_5', help: 'entity.survey.follow_up_text_help' }
           - { property: 'user', role: ROLE_ADMIN, label: 'entity.survey.user' }
+    Response:
+      class: App\Entity\Response
+      role: ROLE_USER
+      list:
+        actions: ['-new', '-edit', 'show']
+        batch_actions: ['delete']
+        fields:
+          - id
+          - { property: 'answer', label: 'entity.response.answer' }
+          - { property: 'followUpAnswer', label: 'entity.response.follow_up_answer' }
+          - { property: 'createdAt', label: 'entity.response.created_at' }
+          - { property: 'survey', label: 'entity.response.survey' }
+      show:
+        actions: ['-edit']
