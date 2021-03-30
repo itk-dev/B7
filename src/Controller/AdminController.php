@@ -31,6 +31,9 @@ class AdminController extends BaseAdminController
      */
     public function exportResponsesAction()
     {
+        // Avoid php timeout errors.
+        set_time_limit(0);
+
         $surveyId = $this->request->query->get('id');
         $entityManager = $this->em;
 
@@ -163,8 +166,9 @@ class AdminController extends BaseAdminController
             $writer->close();
         });
 
+        $filename = 'survey-'.preg_replace('/[^a-zA-Z0-9_-]/', '_', substr($survey->getTitle(), 0, 20)).date('d-m-Y');
         $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $response->headers->set('Content-Disposition', 'attachment; filename="result.xlsx"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$filename.'.xlsx"');
         $response->setStatusCode(Response::HTTP_OK);
 
         return $response;
