@@ -3,6 +3,7 @@ menu:
   user: 'Brugere'
   survey: 'Spørgeskemaer'
   survey_explanation: 'Spørgeskema forklaring'
+  response: 'Besvarelser'
 user_menu:
   profile: 'Profil'
 entity:
@@ -84,3 +85,9 @@ survey_explanation:
   <li>Sangteksterne</li>
   </ul>
   '
+entity.response.answer: Besvarelse
+entity.response.follow_up_answer: Opfølgende besvarelse
+entity.response.created_at: Oprettet
+entity.response.survey: Spørgeskema
+Response: Besvarelse
+ID: ID

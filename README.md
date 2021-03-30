@@ -68,8 +68,8 @@ The [itkdev-docker-compose](https://github.com/aakb/itkdev-docker#helper-scripts
 ### Installing
 
 Create local copy of .env file in your project directory:
-```
-$ cp .env .env.local
+```sh
+cp .env .env.local
 ```
 
 And fill out the database settings and mail settings in your .env.local:
@@ -81,35 +81,37 @@ MAILER_URL=smtp://mailhog
 
 Start docker containers:
 
-```
-$ docker-compose up -d
+```sh
+docker-compose up -d
 ```
 
 Make composer install dependencies and create needed directories:
 
-```
-$ itkdev-docker-compose composer install
+```sh
+itkdev-docker-compose composer install
 ```
 
 Run the migrations:
-```
-$ itkdev-docker-compose bin/console doctrine:migrations:migrate --no-interaction
+```sh
+itkdev-docker-compose bin/console doctrine:migrations:migrate --no-interaction
 ```
 
 Create a super admin user:
-```
-$ itkdev-docker-compose bin/console fos:user:create --super-admin
+```sh
+itkdev-docker-compose bin/console fos:user:create --super-admin
 ```
 
 Install front-end tools and run encore (webpack)
-```
-$ itkdev-docker-compose run yarn install
-$ itkdev-docker-compose run yarn encore dev
+```sh
+itkdev-docker-compose run yarn install
+itkdev-docker-compose run yarn encore dev
 ```
 
 
 Open up the url for the nginx container:
-```
-$ itkdev-docker-compose url # Outputs the url to the site
-$ itkdev-docker-compose open # Opens the site in the default browser
+```sh
+# Outputs the url to the site
+itkdev-docker-compose url
+# Opens the site in the default browser
+itkdev-docker-compose open
 ```

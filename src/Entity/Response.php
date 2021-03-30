@@ -122,4 +122,9 @@ class Response
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return "Response #" . $this->getId();
+    }
 }
