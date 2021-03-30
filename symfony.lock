@@ -5,6 +5,9 @@
     "beberlei/doctrineextensions": {
         "version": "v1.2.0"
     },
+    "box/spout": {
+        "version": "v3.2.0"
+    },
     "composer/semver": {
         "version": "1.5.0"
     },
@@ -193,14 +196,14 @@
     "ocramius/package-versions": {
         "version": "1.4.0"
     },
+    "ocramius/doctrine-batch-utils": {
+        "version": "1.1.0"
+    },
     "ocramius/proxy-manager": {
         "version": "2.1.1"
     },
     "pagerfanta/pagerfanta": {
         "version": "v2.0.1"
-    },
-    "pdepend/pdepend": {
-        "version": "2.5.2"
     },
     "phan/phan": {
         "version": "1.2.7"
@@ -219,9 +222,6 @@
     },
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
-    },
-    "phpmd/phpmd": {
-        "version": "2.6.0"
     },
     "pimple/pimple": {
         "version": "v3.2.3"
