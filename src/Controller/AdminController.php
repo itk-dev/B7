@@ -3,12 +3,19 @@
 namespace App\Controller;
 
 use AlterPHP\EasyAdminExtensionBundle\Controller\EasyAdminController as BaseAdminController;
+use App\Entity\Survey;
+use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
+use DoctrineBatchUtils\BatchProcessing\SimpleBatchIteratorAggregate;
+use DoctrineExtensions\Query\Mysql\Date;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use App\Entity\Response as SurveyResponse;
 
 /**
  * Class AdminController.
@@ -17,6 +24,156 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class AdminController extends BaseAdminController
 {
+    /**
+     * Exports the responses of a given survey.
+     * @throws \Box\Spout\Common\Exception\IOException
+     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
+     */
+    public function exportResponsesAction()
+    {
+        // Avoid php timeout errors.
+        set_time_limit(0);
+
+        $surveyId = $this->request->query->get('id');
+        $entityManager = $this->em;
+
+        /** @var Survey $survey */
+        $survey = $entityManager->getRepository(Survey::class)->find($surveyId);
+
+        $smileys = ['Meget utilfreds', 'Utilfreds', 'Mellem', 'Glad', 'Meget glad'];
+        $followUpQuestions = [
+            $survey->getNegativeFollowUp(),
+            $survey->getNeutralFollowUp(),
+            $survey->getPositiveFollowUp(),
+        ];
+        $followUpAnswers = [
+            $survey->getFollowUpText1(),
+            $survey->getFollowUpText2(),
+            $survey->getFollowUpText3(),
+            $survey->getFollowUpText4(),
+            $survey->getFollowUpText5(),
+        ];
+
+        $query = $entityManager->getRepository(SurveyResponse::class)
+            ->createQueryBuilder('r')
+            ->where('r.survey = :surveyId')
+            ->setParameter('surveyId', $surveyId)
+            ->getQuery();
+
+        $iterableSurveyRecords = SimpleBatchIteratorAggregate::fromQuery(
+            $query,
+            100
+        );
+
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $writer->openToFile('php://output');
+
+        $response = new StreamedResponse();
+
+        $response->setCallback(function () use ($iterableSurveyRecords, $writer, $survey, $smileys, $followUpAnswers, $followUpQuestions) {
+            $boldStyle = (new StyleBuilder())
+                ->setFontBold()
+                ->build();
+
+            $rows = [
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('Titel', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getTitle()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('Eksportdato', $boldStyle),
+                    WriterEntityFactory::createCell((new \DateTime())->format('c')),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('Spørgsmål', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getQuestion()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('Positiv opfølgning', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getPositiveFollowUp()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('Neutral opfølgning', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getNeutralFollowUp()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('Negativ opfølgning', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getNegativeFollowUp()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('1. svarmulighed', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getFollowUpText1()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('2. svarmulighed', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getFollowUpText2()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('3. svarmulighed', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getFollowUpText3()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('4. svarmulighed', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getFollowUpText4()),
+                ]),
+                WriterEntityFactory::createRow([
+                    WriterEntityFactory::createCell('5. svarmulighed', $boldStyle),
+                    WriterEntityFactory::createCell($survey->getFollowUpText5()),
+                ]),
+                WriterEntityFactory::createRowFromArray([]),
+                WriterEntityFactory::createRowFromArray([]),
+            ];
+            $writer->addRows($rows);
+
+            $row = WriterEntityFactory::createRowFromArray([
+                'ID',
+                'Tidspunkt',
+                'Tilfredshed',
+                'Opfølgende spørgsmål',
+                'Opfølgende svar',
+                'Svar (numerisk værdi)',
+                'Opfølgende svar (numerisk værdi)',
+            ], $boldStyle);
+            $writer->addRow($row);
+
+            /** @var array $surveyResponseArray */
+            foreach ($iterableSurveyRecords as $surveyResponseArray) {
+                /** @var SurveyResponse $surveyResponse */
+                $surveyResponse = $surveyResponseArray[0];
+
+                $answerIndex = $surveyResponse->getAnswer() - 1;
+
+                if ($answerIndex == 0 || $answerIndex == 1) {
+                    $followUpQuestionIndex = 0;
+                } else if ($answerIndex == 2) {
+                    $followUpQuestionIndex = 1;
+                } else {
+                    $followUpQuestionIndex = 2;
+                }
+
+                $row = WriterEntityFactory::createRowFromArray([
+                    $surveyResponse->getId(),
+                    $surveyResponse->getCreatedAt()->format('c'),
+                    $smileys[$answerIndex],
+                    $followUpQuestions[$followUpQuestionIndex],
+                    $followUpAnswers[$surveyResponse->getFollowUpAnswer() - 1],
+                    $surveyResponse->getAnswer(),
+                    $surveyResponse->getFollowUpAnswer()
+                ]);
+                $writer->addRow($row);
+            }
+
+            $writer->close();
+        });
+
+        $filename = 'survey-'.preg_replace('/[^a-zA-Z0-9_-]/', '_', substr($survey->getTitle(), 0, 20)).date('d-m-Y');
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $response->headers->set('Content-Disposition', 'attachment; filename="'.$filename.'.xlsx"');
+        $response->setStatusCode(Response::HTTP_OK);
+
+        return $response;
+    }
+
     public static function getSubscribedServices(): array
     {
         return array_merge(parent::getSubscribedServices(), ['fos_user.user_manager' => UserManagerInterface::class]);

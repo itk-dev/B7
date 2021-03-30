@@ -35,6 +35,7 @@ Survey: 'Spørgeskema'
 action:
   statistics: 'Statistik'
   redirect_to_survey: 'Vis'
+  export_responses: 'Eksportér'
 statistics:
   form:
     label:
