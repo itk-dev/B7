@@ -50,6 +50,7 @@ easy_admin:
         fields:
           - { property: 'title', label: 'entity.survey.title', help: 'entity.survey.title_help' }
           - { property: 'question', label: 'entity.survey.question', help: 'entity.survey.question_help' }
+          - { property: 'disableFollowUp', label: 'entity.survey.disable_follow_up', help: 'entity.survey.disable_follow_up_help' }
           - { property: 'positiveFollowUp', label: 'entity.survey.positive_follow_up', help: 'entity.survey.positive_follow_up_help' }
           - { property: 'neutralFollowUp', label: 'entity.survey.neutral_follow_up', help: 'entity.survey.neutral_follow_up_help' }
           - { property: 'negativeFollowUp', label: 'entity.survey.negative_follow_up', help: 'entity.survey.negative_follow_up_help' }

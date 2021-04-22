@@ -1,13 +1,11 @@
-
 export default function ($) {
+    const disableFollowUp = $('.main').data('disable-follow-up');
 
     let app = {
-
         /**
          * Initialization of the app.
          */
         init: function () {
-
             // Find container divs.
             let pageMainDiv = $("#page_main");
             let pageChoiceDiv = $("#page_choice");
@@ -60,27 +58,52 @@ export default function ($) {
             $("#smiley1").on("touchstart click", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                app.showWhatPage(1);
+
+                if (disableFollowUp) {
+                    app.showResultPage(1);
+                } else {
+                    app.showWhatPage(1);
+                }
             });
             $("#smiley2").on("touchstart click", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                app.showWhatPage(2);
+
+                if (disableFollowUp) {
+                    app.showResultPage(2);
+                } else {
+                    app.showWhatPage(2);
+                }
             });
             $("#smiley3").on("touchstart click", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                app.showWhatPage(3);
+
+                if (disableFollowUp) {
+                    app.showResultPage(3);
+                } else {
+                    app.showWhatPage(3);
+                }
             });
             $("#smiley4").on("touchstart click", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                app.showWhatPage(4);
+
+                if (disableFollowUp) {
+                    app.showResultPage(4);
+                } else {
+                    app.showWhatPage(4);
+                }
             });
             $("#smiley5").on("touchstart click", function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                app.showWhatPage(5);
+
+                if (disableFollowUp) {
+                    app.showResultPage(5);
+                } else {
+                    app.showWhatPage(5);
+                }
             });
         },
 
@@ -137,7 +160,7 @@ export default function ($) {
             // Set timeout for page. If user has not selected a reason for the smiley before the timeout, commit answer with
             // what set to 0.
             app.timer = setTimeout(function () {
-                let datetime = (new Date()).getTime();
+                let datetime = Math.floor((new Date()).getTime() / 1000);
 
                 // Post data to server
                 app.sendResultToServer(nSmiley, 0, datetime, function () {
@@ -173,7 +196,7 @@ export default function ($) {
 
             $(".footer").show();
 
-            let datetime = (new Date()).getTime();
+            let datetime = Math.floor((new Date()).getTime() / 1000);
 
             // Post data to server
             app.sendResultToServer(nSmiley, nWhat, datetime, function () {
