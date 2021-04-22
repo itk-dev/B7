@@ -46,9 +46,7 @@ class Response
     {
         $this->setSurvey($survey);
         $this->setAnswer($answer);
-        if (isset($followUpAnswer)) {
-            $this->setFollowUpAnswer($followUpAnswer);
-        }
+        $this->setFollowUpAnswer($followUpAnswer);
         $this->setCreatedAt($dateTime);
     }
 
@@ -67,7 +65,7 @@ class Response
         return $this->answer;
     }
 
-    public function getFollowUpAnswer(): int
+    public function getFollowUpAnswer(): ?int
     {
         return $this->followUpAnswer;
     }

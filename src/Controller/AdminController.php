@@ -156,9 +156,9 @@ class AdminController extends BaseAdminController
                     $surveyResponse->getCreatedAt()->format('c'),
                     $smileys[$answerIndex],
                     $followUpQuestions[$followUpQuestionIndex],
-                    $followUpAnswers[$surveyResponse->getFollowUpAnswer() - 1],
+                    $surveyResponse->getFollowUpAnswer() ? $followUpAnswers[$surveyResponse->getFollowUpAnswer() - 1] : '',
                     $surveyResponse->getAnswer(),
-                    $surveyResponse->getFollowUpAnswer()
+                    $surveyResponse->getFollowUpAnswer() ?: ''
                 ]);
                 $writer->addRow($row);
             }
