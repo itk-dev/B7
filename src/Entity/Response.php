@@ -28,7 +28,7 @@ class Response
     private $answer;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $followUpAnswer;
 
@@ -42,11 +42,13 @@ class Response
      *
      * @throws \Exception
      */
-    public function __construct(Survey $survey, int $answer, int $followUpAnswer, \DateTime $dateTime)
+    public function __construct(Survey $survey, int $answer, ?int $followUpAnswer, \DateTime $dateTime)
     {
         $this->setSurvey($survey);
         $this->setAnswer($answer);
-        $this->setFollowUpAnswer($followUpAnswer);
+        if (isset($followUpAnswer)) {
+            $this->setFollowUpAnswer($followUpAnswer);
+        }
         $this->setCreatedAt($dateTime);
     }
 
@@ -78,7 +80,7 @@ class Response
     /**
      * @return Response
      */
-    private function setSurvey(Survey $survey): self
+    public function setSurvey(Survey $survey): self
     {
         $this->survey = $survey;
 
@@ -88,7 +90,7 @@ class Response
     /**
      * @return Response
      */
-    private function setAnswer(int $answer): self
+    public function setAnswer(int $answer): self
     {
         if (0 > $answer || 5 < $answer) {
             throw new \InvalidArgumentException('Answer must be between 0 and 5');
@@ -102,7 +104,7 @@ class Response
     /**
      * @return Response
      */
-    private function setFollowUpAnswer(int $followUpAnswer): self
+    public function setFollowUpAnswer(?int $followUpAnswer): self
     {
         if (0 > $followUpAnswer || 5 < $followUpAnswer) {
             throw new \InvalidArgumentException('FollowUp answer must be between 0 and 5.');
@@ -116,7 +118,7 @@ class Response
     /**
      * @return Response
      */
-    private function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 

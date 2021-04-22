@@ -91,3 +91,5 @@ entity.response.created_at: Oprettet
 entity.response.survey: Spørgeskema
 Response: Besvarelse
 ID: ID
+entity.survey.disable_follow_up: Slå opfølgende spørgsmål fra
+entity.survey.disable_follow_up_help: Brug denne mulighed hvis du ikke ønsker opfølgende spørgsmål
