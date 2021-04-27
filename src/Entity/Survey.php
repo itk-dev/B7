@@ -79,6 +79,11 @@ class Survey
      */
     private $neutralFollowUp;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $disableFollowUp;
+
     public function __construct()
     {
         $this->responses = new ArrayCollection();
@@ -284,6 +289,18 @@ class Survey
     public function setNeutralFollowUp(string $neutralFollowUp): self
     {
         $this->neutralFollowUp = $neutralFollowUp;
+
+        return $this;
+    }
+
+    public function getDisableFollowUp(): ?bool
+    {
+        return $this->disableFollowUp;
+    }
+
+    public function setDisableFollowUp(bool $disableFollowUp): self
+    {
+        $this->disableFollowUp = $disableFollowUp;
 
         return $this;
     }
